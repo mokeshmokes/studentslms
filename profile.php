@@ -1,32 +1,56 @@
 <?php
-session_start(); // ✅ Must be at the top
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // ✅ Safe session start
+}
 ?>
-<?php
-include('headericon.php');
-?>
+<?php include('headericon.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap.css">
-    <title>Profile</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile</title>
+  <link rel="stylesheet" href="bootstrap.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .profile-card {
+      max-width: 400px;
+      margin: 50px auto;
+      background-color: #f1f1f1;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-icon {
+      font-size: 80px;
+      color: gray;
+    }
+
+    .profile-field {
+      font-size: 18px;
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    @media (max-width: 576px) {
+      .profile-card {
+        margin: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-    <div style="margin-left: 35%; margin-top: 30px; background-color:gainsboro; width: 30%;">
-    <p style="text-align: center;" class=""><i style="color:gray;" class="mt-3 fas fa-user-tie fa-6x"></i></p>
-    <p class="mx-3">Name: <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?> </p>
-    <p class="mx-3">Email: <?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'Not Available'; ?> </p>
-    <p class="mx-3">Mobile: <?php echo isset($_SESSION['mobileno']) ? $_SESSION['mobileno'] : 'Not available'; ?> </p>
-    <p class="mx-3">Password: <?php echo isset($_SESSION['password']) ? $_SESSION['password'] : 'Not available'; ?> </p>
-    <br></div>
-</div>
-
+  <div class="container">
+    <div class="profile-card text-center">
+      <i class="fas fa-user-tie profile-icon"></i>
+      <div class="profile-field"><strong>Name:</strong> <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest'; ?></div>
+      <div class="profile-field"><strong>Email:</strong> <?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'Not Available'; ?></div>
+      <div class="profile-field"><strong>Mobile:</strong> <?php echo isset($_SESSION['mobileno']) ? $_SESSION['mobileno'] : 'Not available'; ?></div>
+      <div class="profile-field"><strong>Password:</strong> <?php echo isset($_SESSION['password']) ? $_SESSION['password'] : 'Not available'; ?></div>
+    </div>
+  </div>
 </body>
 </html>
 <br><br>
-<?php
-include('footer.php');
-?>
+<?php include('footer.php'); ?>

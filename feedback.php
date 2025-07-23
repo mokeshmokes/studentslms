@@ -14,18 +14,18 @@ include('headericon.php');
     <link rel="stylesheet" href="bootstrap.css">
 </head>
 <body>
-    <div class="container" style="width: 35%;background-color: darkgray;">
+    <div class="container" style="max-width: 500px; background-color: darkgray;">
         <p class="text-center" style="font-size: 35px;">Feedback Form</p>
         <div>
-           <form action="fdb.php" method="POST">
+           <form action="cdb.php" method="POST">
             <label for="name">Your Name</label><br><br>
-            <input type="text" placeholder="enter your name" required style="width: 100%;" name="fname"><br><br>
+            <input type="text" placeholder="enter your name" required style="width: 100%;" name="cname"><br><br>
             <label for="email">Email</label><br><br>
-            <input type="email" required placeholder="example@gmail.com" style="width: 100%;" name="femail"><br><br>
+            <input type="email" required placeholder="example@gmail.com" style="width: 100%;" name="cemail"><br><br>
             <label for="subject">Subject</label><br><br>
-            <input type="text" required style="width: 100%;" name="fsubject"><br><br>
+            <input type="text" required style="width: 100%;" name="csubject"><br><br>
             <label for="message">Message</label><br><br>
-            <textarea name="fmessage" id="message" rows="5" style="width: 100%;" required></textarea><br><br>
+            <textarea id="message" rows="5" style="width: 100%;" name="cmessage"></textarea><br><br>
             <button style="background-color: aqua; border: aqua 2px; margin-left: 40%;">Send Message</button>
             <br><br>
         </form>
