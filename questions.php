@@ -1,238 +1,601 @@
 <?php
-session_start(); // ✅ Must be at the top
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // ✅ Safe session start
+}
 ?>
-<?php include('headericon.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Class Guide Links</title>
-  <style>
-    .section, .links {
-      display: none;
-      margin-top: 15px;
-    }
-    li{
-      list-style-type: none;
-    }
-  </style>
-  <script>
-    function showSubjectOptions() {
-      document.querySelectorAll('.section').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.links').forEach(el => el.style.display = 'none');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student_Friendly / Question Papers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" />
+    <style>
+        /* Base Styling */
+        body {
+            /* Note: bg2.jpeg is not included, so you'll need to provide it */
+            background-image: url(./image/WhatsApp\ Image\ 2025-09-28\ at\ 09.29.24_91e7c59a.jpg);
+            background-size: cover;
+            background-position: center;
+            font-family: "Lato", sans-serif;
+            background-color: #f8f9fa;
+        }
 
-      const selectedClass = document.querySelector('input[name="class"]:checked');
-      if (selectedClass) {
-        document.getElementById(selectedClass.value.toLowerCase() + 'Section').style.display = 'block';
-      }
-    }
+        /* Card 1: Header/Logo */
+        .card1 {
+            background-color: #006ceb;
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 5%;
+            padding: 20px;
+        }
 
-    function showLinks(className) {
-      document.querySelectorAll('.links').forEach(el => el.style.display = 'none');
-      const subject = document.querySelector(`input[name="${className}Subject"]:checked`);
-      if (subject) {
-        const id = className + subject.value.toLowerCase() + 'Links';
-        document.getElementById(id).style.display = 'block';
-      }
-    }
-  </script>
-</head><br><br>
-<body style="text-align: center;">
+        /* Card 2: User Info */
+        .card2 {
+            background-color: white;
+            border-radius: 10px;
+            width: 95%;
+            opacity: 0.9;
+            padding: 5px;
+            margin-top: 6px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            margin-left: auto;
+            margin-right: 0;
+        }
 
-<h3>Select Your Class:</h3>
-<form>
-  <input type="radio" name="class" value="10th" onclick="showSubjectOptions()"> 10th<br>
-  <input type="radio" name="class" value="11th" onclick="showSubjectOptions()"> 11th<br>
-  <input type="radio" name="class" value="12th" onclick="showSubjectOptions()"> 12th<br>
-</form>
+        .card2 h6 {
+            color: #000000;
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
 
-<!-- 10th Subjects -->
-<div id="10thSection" class="section">
-  <h4>Select Subject (10th):</h4>
-  <input type="radio" name="10thSubject" value="Tamil" onclick="showLinks('10th')"> Tamil<br>
-  <input type="radio" name="10thSubject" value="English" onclick="showLinks('10th')"> English<br>
-  <input type="radio" name="10thSubject" value="Maths" onclick="showLinks('10th')"> Maths<br>
-  <input type="radio" name="10thSubject" value="Science" onclick="showLinks('10th')"> Science<br>
-  <input type="radio" name="10thSubject" value="SocialScience" onclick="showLinks('10th')"> Social Science<br>
+        /* Selection Cards */
+        .card-selection {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            padding: 5px 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Specific card classes for initial display state */
+        .card3,
+        .card30,
+        .card31,
+        .card32,
+        .card33 {
+            display: none;
+            width: 100%;
+            margin-left: 0;
+            margin-top: 15px;
+        }
+
+        .card3 {
+            display: block;
+        }
+
+        h2 {
+            color: #006ceb;
+            font-family: "Lato", sans-serif;
+            font-size: 1.5rem;
+            margin-left: 0 !important;
+        }
+
+        /* Styling for radio buttons and their labels */
+        input[type="radio"] {
+            margin: 15px;
+            transform: scale(1.3);
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .form-check-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        /* Styling for select dropdowns */
+        #groupSelect,
+        #subjectSelecte,
+        #subjectSelectt,
+        #volumeSelect {
+            padding: 10px;
+            width: 90%;
+            margin: 10px auto;
+            display: block;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+
+        /* Card 4: Placeholder/Display Area */
+        .card4 {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin-left: 0;
+        }
+
+        #short {
+            display: inline-block;
+            font-size: 40px;
+            font-weight: 700;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #s2 {
+            font-size: 4rem;
+            margin-right: 0.5rem;
+        }
+
+        #s3 {
+            font-size: 4rem;
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 480px) {
+            #short {
+                font-size: 20px;
+            }
+
+            #s2 {
+                font-size: 2rem;
+                margin-right: 0.25rem;
+            }
+
+            #s3 {
+                font-size: 2rem;
+                margin-right: 0.25rem;
+                margin-left: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card1">
+        <div class="row align-items-center">
+            <div class="col-md-6 d-flex align-items-center">
+                <i class="fa-solid fa-graduation-cap fa-4x me-2" id="s2"></i>
+                <span id="short">Student_Friendly</span>
+            </div>
+            <div class="col-md-6">
+                <div class="card2 row g-0">
+                    <div class="col-auto d-flex align-items-center ps-2">
+                        <i class="fa-solid fa-circle-user fa-3x" style="color: #000000;" id="s3"></i>
+                    </div>
+                    <div class="col-auto d-flex flex-column justify-content-center ps-3">
+                        <h6><?php echo isset($_SESSION['username0']) ? $_SESSION['username0'] : 'Guest0'; ?><?php echo isset($_SESSION['username1']) ? $_SESSION['username1'] : 'Guest1'; ?></h6>
+                        <h6><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'Not Available'; ?></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card3">
+                            <h2 style="margin-left: 20px;">SELECT CLASS</h2>
+                            <div class="d-flex p-2">
+                                <div class="form-check me-4">
+                                    <input class="form-check-input" type="radio" id="10th" name="classs"
+                                        onclick="handleClassChange('10th')" value="10th">
+                                    <label class="form-check-label" for="10th">10th</label>
+                                </div>
+                                <div class="form-check me-4">
+                                    <input class="form-check-input" type="radio" id="11th" name="classs"
+                                        onclick="handleClassChange('11th')" value="11th">
+                                    <label class="form-check-label" for="11th">11th</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="12th" name="classs"
+                                        onclick="handleClassChange('12th')" value="12th">
+                                    <label class="form-check-label" for="12th">12th</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card30">
+                            <h2 style="margin-left: 20px;">SELECT MEDIUM</h2>
+                            <div class="d-flex p-2">
+                                <div class="form-check me-4">
+                                    <input class="form-check-input" type="radio" id="tam" name="Medium"
+                                        onclick="tamil()" value="Tamil">
+                                    <label class="form-check-label" for="tam">Tamil</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="eng" name="Medium"
+                                        onclick="english()" value="English">
+                                    <label class="form-check-label" for="eng">English</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card31">
+                            <h2 style="margin-left: 20px;"> SELECT GROUP</h2>
+                            <select id="groupSelect" onchange="showSubject()">
+                                <option value="default">Select your group</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card32">
+                            <h2 style="margin-left: 20px;"> SELECT SUBJECT</h2>
+                            <select id="subjectSelecte" style="display: none;" onchange="handleSubjectChange()"></select>
+                            <select id="subjectSelectt" style="display: none;" onchange="handleSubjectChange()"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card4">
+                    <div id="contentArea" style="width: 100%; height: 100%; padding: 20px; overflow-y: auto;">
+                        <h3 style="margin: 20px; text-align: center; color: #006ceb;">Welcome! Please select your Class, Medium, Group (if applicable), and Subject to view question papers.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+<div>
+    <a href="allicon.php"><button class="btn btn-danger" style="margin-left: 46%; padding:10px">Back</button></a>
 </div>
+    <script>
+        let medium = '';
+        let currentClass = '';
+        
+        const groups = {
+            English: {
+                default: "Select your group",
+                CSE: "CSE",
+                Biology: "BIOLOGY",
+                BusinessMaths: "BUSINESS MATHS",
+                Commerce: "COMMERCE",
+                PureScience: "PURE SCIENCE"
+            },
+            Tamil: {
+                default: "உங்கள் குழுவைத் தேர்ந்தெடுக்கவும்",
+                CSE: "கணினி அறிவியல்",
+                Biology: "உயிரியல்",
+                BusinessMaths: "வணிகக் கணிதம்",
+                Commerce: "வணிகவியல்",
+                PureScience: "தூய அறிவியல்"
+            }
+        };
 
-<!-- 10th Tamil Links -->
-<div id="10thtamilLinks" class="links">
-  <h4>10th Tamil Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-tamil-model-question-papers/" target="_blank">Tamil Question Paper</a></li>
-  </ul>
-</div>
+        // Question paper content mapping
+        const questionData = {
+            '10th': {
+                'Tamil': '<h4><i class="fas fa-file-pdf"></i> 10th Tamil Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-tamil-model-question-papers/" target="_blank" rel="noopener noreferrer">Tamil Question Paper</a></li></ul>',
+                'English': '<h4><i class="fas fa-file-pdf"></i> 10th English Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-english-model-question-papers/" target="_blank" rel="noopener noreferrer">English Question Paper</a></li></ul>',
+                'Maths': '<h4><i class="fas fa-file-pdf"></i> 10th Maths Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-maths-model-question-papers/" target="_blank" rel="noopener noreferrer">Maths Question Paper</a></li></ul>',
+                'Science': '<h4><i class="fas fa-file-pdf"></i> 10th Science Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-science-model-question-papers/" target="_blank" rel="noopener noreferrer">Science Question Paper</a></li></ul>',
+                'Social Science': '<h4><i class="fas fa-file-pdf"></i> 10th Social Science Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-social-science-model-question-papers/" target="_blank" rel="noopener noreferrer">Social Science Question Paper</a></li></ul>'
+            },
+            '11th': {
+                'Tamil': '<h4>11th Tamil Question Paper</h4><ul><li><a href="https://schools.aglasem.com/tamil-nadu-model-paper-class-11-tamil/" target="_blank" rel="noopener noreferrer">Tamil Question Paper</a></li></ul>',
+                'English': '<h4>11th English Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-english-model-question-papers/" target="_blank" rel="noopener noreferrer">English Question Paper</a></li></ul>',
+                'Maths': '<h4>11th Maths Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-maths-model-question-papers/" target="_blank" rel="noopener noreferrer">Maths Question Paper</a></li></ul>',
+                'Chemistry': '<h4>11th Chemistry Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-chemistry-model-question-papers/" target="_blank" rel="noopener noreferrer">Chemistry Question Paper</a></li></ul>',
+                'Physics': '<h4>11th Physics Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-physics-model-question-papers/" target="_blank" rel="noopener noreferrer">Physics Question Paper</a></li></ul>',
+                'Biology': '<h4>11th Bio-Zoology Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-biology-model-question-papers/" target="_blank" rel="noopener noreferrer">Biology Question Paper</a></li></ul>',
+                'Computer Science': '<h4>11th Computer Question Paper</h4><ul><li><a href="https://schools.aglasem.com/tamil-nadu-11th-model-question-paper-for-computer-science/" target="_blank" rel="noopener noreferrer">Computer Question Paper</a></li></ul>',
+                'Accountancy': '<h4>11th Accountancy Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-accountancy-model-question-papers/" target="_blank" rel="noopener noreferrer">Accountancy Question Paper</a></li></ul>',
+                'Economics': '<h4>11th Economics Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-economics-model-question-papers/" target="_blank" rel="noopener noreferrer">Economics Question Paper</a></li></ul>',
+                'Commerce': '<h4>11th Commerce Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-commerce-model-question-papers/" target="_blank" rel="noopener noreferrer">Commerce Question Paper</a></li></ul>',
+                'Business Maths': '<h4>11th Business Maths Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-business-maths-model-question-papers/" target="_blank" rel="noopener noreferrer">Business Maths Question Paper</a></li></ul>',
+                'Computer Application': '<h4>11th Computer Application Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-computer-application-model-question-papers/" target="_blank" rel="noopener noreferrer">Computer Application Question Paper</a></li></ul>'
+            },
+            '12th': {
+                'Tamil': '<h4>12th Tamil Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-tamil-model-question-papers/" target="_blank" rel="noopener noreferrer">Tamil Question Paper</a></li></ul>',
+                'English': '<h4>12th English Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-english-model-question-papers/" target="_blank" rel="noopener noreferrer">English Question Paper</a></li></ul>',
+                'Maths': '<h4>12th Maths Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-maths-model-question-papers/" target="_blank" rel="noopener noreferrer">Maths Question Paper</a></li></ul>',
+                'Chemistry': '<h4>12th Chemistry Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-chemistry-model-question-papers/" target="_blank" rel="noopener noreferrer">Chemistry Question Paper</a></li></ul>',
+                'Physics': '<h4>12th Physics Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-physics-model-question-papers/#google_vignette" target="_blank" rel="noopener noreferrer">Physics Question Paper</a></li></ul>',
+                'Biology': '<h4>12th Bio-Zoology Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-biology-model-question-papers/" target="_blank" rel="noopener noreferrer">Biology Question Paper</a></li></ul>',
+                'Computer Science': '<h4><i class="fas fa-file-pdf"></i> 12th Computer Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-computer-science-model-question-papers/" target="_blank" rel="noopener noreferrer">Computer Question Paper</a></li></ul>',
+                'Accountancy': '<h4>12th Accountancy Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-accountancy-model-question-papers/" target="_blank" rel="noopener noreferrer">Accountancy Question Paper</a></li></ul>',
+                'Economics': '<h4>12th Economics Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-economics-model-question-papers/" target="_blank" rel="noopener noreferrer">Economics Question Paper</a></li></ul>',
+                'Commerce': '<h4>12th Commerce Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-commerce-model-question-papers/" target="_blank" rel="noopener noreferrer">Commerce Question Paper</a></li></ul>',
+                'Business Maths': '<h4>12th Business Maths Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-business-maths-model-question-papers/" target="_blank" rel="noopener noreferrer">Business Maths Question Paper</a></li></ul>',
+                'Computer Application': '<h4>12th Computer Application Question Paper</h4><ul><li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-computer-application-model-question-papers/" target="_blank" rel="noopener noreferrer">Computer Application Question Paper</a></li></ul>'
+            }
+        };
 
-<!-- 10th English Links -->
-<div id="10thenglishLinks" class="links">
-  <h4>10th English Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-english-model-question-papers/" target="_blank">English Question Paper</a></li>
-  </ul>
-</div>
+        function getSubjectNameFromOption(optionText) {
+            let text = optionText.trim();
+            const tamilToEnglish = {
+                "ஆங்கிலம்": "English",
+                "தமிழ்": "Tamil",
+                "கணிதம்": "Maths",
+                "அறிவியல்": "Science",
+                "சமூக அறிவியல்": "Social Science",
+                "வேதியியல்": "Chemistry",
+                "இயற்பியல்": "Physics",
+                "உயிரியல்": "Biology",
+                "கணினி அறிவியல": "Computer Science",
+                "கணக்கியல்": "Accountancy",
+                "பொருளியல்": "Economics",
+                "வணிகவியல்": "Commerce",
+                "வணிகக் கணிதம்": "Business Maths",
+                "கணினி பயன்பாடு": "Computer Application",
+            };
+            return medium === 'English' ? text : tamilToEnglish[text] || text;
+        }
 
-<!-- 10th Maths Links -->
-<div id="10thmathsLinks" class="links">
-  <h4>10th Maths Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-maths-model-question-papers/" target="_blank">Maths Question Paper</a></li>
-  </ul>
-</div>
+        function handleSubjectChange() {
+            const activeSelect = document.getElementById(medium === 'English' ? 'subjectSelecte' : 'subjectSelectt');
+            const selectedText = activeSelect.options[activeSelect.selectedIndex].text;
+            const selectedValue = activeSelect.value;
+            
+            if (selectedValue && selectedValue !== 'default' && selectedText) {
+                const subjectKey = getSubjectNameFromOption(selectedText);
+                const content = questionData[currentClass] && questionData[currentClass][subjectKey] 
+                    ? questionData[currentClass][subjectKey] 
+                    : `<h3 style="margin: 20px; text-align: center; color: #006ceb;">Question paper for ${subjectKey} (${currentClass}) not available.</h3>`;
+                
+                document.getElementById('contentArea').innerHTML = content;
+            } else {
+                document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select a subject to view question papers.</h3>';
+            }
+        }
 
-<!-- 10th Science Links -->
-<div id="10thscienceLinks" class="links">
-  <h4>10th Science Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-science-model-question-papers/" target="_blank">Science Question Paper</a></li>        
-  </ul>
-</div>
+        function setGroupOptions(lang) {
+            const select = document.getElementById('groupSelect');
+            const groupData = groups[lang];
+            let optionsHtml = '';
 
-<!-- 10th Social Science Links -->
-<div id="10thsocialscienceLinks" class="links">
-  <h4>10th Social Science Question Paper</h4>
- <ul>
-    <li><a href="https://samacheerkalvi.guru/samacheer-kalvi-10th-social-science-model-question-papers/" target="_blank">Social Science Question Paper</a></li>
- </ul>
-</div>
+            for (const [key, value] of Object.entries(groupData)) {
+                const optionValue = key === 'default' ? 'default' : key;
+                optionsHtml += `<option value="${optionValue}">${value}</option>`;
+            }
+            select.innerHTML = optionsHtml;
+        }
 
-<div id="11thSection" class="section">
-  <h4>Select Subject (11th):</h4>
-  <input type="radio" name="11thSubject" value="Tamil" onclick="showLinks('11th')"> Tamil<br>
-  <input type="radio" name="11thSubject" value="English" onclick="showLinks('11th')"> English<br>
-  <input type="radio" name="11thSubject" value="Maths" onclick="showLinks('11th')"> Maths<br>
-  <input type="radio" name="11thSubject" value="Physics" onclick="showLinks('11th')"> Physics<br>
-  <input type="radio" name="11thSubject" value="Chemistry" onclick="showLinks('11th')"> Chemistry<br>
-  <input type="radio" name="11thSubject" value="Bio-Zoology" onclick="showLinks('11th')"> Bio-Zoology<br>
-  <input type="radio" name="11thSubject" value="Bio-Botony" onclick="showLinks('11th')"> Bio-Botony<br>
-  <input type="radio" name="11thSubject" value="Computer" onclick="showLinks('11th')"> Computer<br>
-</div>
+        function hideGroupAndSubject() {
+            document.querySelector('.card31').style.display = "none";
+            document.querySelector('.card32').style.display = "none";
+            document.getElementById('groupSelect').value = 'default';
+            document.getElementById('subjectSelecte').innerHTML = '';
+            document.getElementById('subjectSelectt').innerHTML = '';
+            document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select your Class, Medium, Group (if applicable), and Subject to view question papers.</h3>';
+        }
 
-<div id="11thtamilLinks" class="links">
-  <h4>11th Tamil Question Paper</h4>
-  <ul>
-    <li><a href="https://schools.aglasem.com/tamil-nadu-model-paper-class-11-tamil/" target="_blank">Tamil Question Paper</a></li>
-  </ul>
-</div>
+        function handleClassChange(cls) {
+            currentClass = cls;
+            document.querySelector('.card30').style.display = "block";
+            document.querySelectorAll('input[name="Medium"]').forEach(r => r.checked = false);
+            hideGroupAndSubject();
+        }
 
-<div id="11thenglishLinks" class="links">
-  <h4>11th English Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-english-model-question-papers/" target="_blank">English Question Paper</a></li>
-    </ul>
-</div>
+        function tamil() {
+            medium = 'Tamil';
+            setGroupOptions('Tamil');
+            if (currentClass === '10th') {
+                ten();
+            } else {
+                eleOrTwel();
+            }
+        }
 
-<div id="11thmathsLinks" class="links">
-  <h4>11th Maths Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-maths-model-question-papers/" target="_blank">Maths Question Paper</a></li>
-  </ul>
-</div>
+        function english() {
+            medium = 'English';
+            setGroupOptions('English');
+            if (currentClass === '10th') {
+                ten();
+            } else {
+                eleOrTwel();
+            }
+        }
 
-<div id="11thphysicsLinks" class="links">
-  <h4>11th Physics Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-physics-model-question-papers/" target="_blank">Physics Question Paper</a></li>
-  </ul>
-</div>
+        function ten() {
+            document.querySelector('.card31').style.display = "none";
+            document.querySelector('.card32').style.display = "block";
+            document.getElementById('groupSelect').value = 'default';
 
-<div id="11thchemistryLinks" class="links">
-  <h4>11th Chemistry Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-chemistry-model-question-papers/" target="_blank">Chemistry Question Paper</a></li>
-  </ul>
-</div>
+            if (medium === 'Tamil') {
+                document.getElementById('subjectSelecte').style.display = 'none';
+                document.getElementById('subjectSelectt').style.display = 'block';
+                setSubjectsForTen('Tamil');
+            } else {
+                document.getElementById('subjectSelectt').style.display = 'none';
+                document.getElementById('subjectSelecte').style.display = 'block';
+                setSubjectsForTen('English');
+            }
+        }
 
-<div id="11thbio-zoologyLinks" class="links">
-  <h4>11th Bio-Zoology Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-biology-model-question-papers/" target="_blank">Biology Question Paper</a></li>
-  </ul>
-</div>
+        function eleOrTwel() {
+            document.querySelector('.card31').style.display = "block";
+            document.querySelector('.card32').style.display = "none";
+            document.getElementById('subjectSelecte').innerHTML = '';
+            document.getElementById('subjectSelectt').innerHTML = '';
+            document.getElementById('groupSelect').value = 'default';
+        }
 
-<div id="11thbio-botonyLinks" class="links">
-  <h4>11th Bio-Botony Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-11th-biology-model-question-papers/" target="_blank">Biology Question Paper</a></li>
-  </ul>
-</div>
+        function showSubject() {
+            const group = document.getElementById('groupSelect').value;
+            const subjectSelectE = document.getElementById('subjectSelecte');
+            const subjectSelectT = document.getElementById('subjectSelectt');
 
-<div id="11thcomputerLinks" class="links">
-  <h4>11th Computer Question Paper</h4>
-  <ul>
-    <li><a href="https://schools.aglasem.com/tamil-nadu-11th-model-question-paper-for-computer-science/" target="_blank">Computer Question Paper</a></li>
-  </ul>
-</div>
+            if (group !== 'default') {
+                document.querySelector('.card32').style.display = "block";
 
-<div id="12thSection" class="section">
-  <h4>Select Subject (12th):</h4>
-  <input type="radio" name="12thSubject" value="Tamil" onclick="showLinks('12th')"> Tamil<br>
-  <input type="radio" name="12thSubject" value="English" onclick="showLinks('12th')"> English<br>
-  <input type="radio" name="12thSubject" value="Maths" onclick="showLinks('12th')"> Maths<br>
-  <input type="radio" name="12thSubject" value="Physics" onclick="showLinks('12th')"> Physics<br>
-  <input type="radio" name="12thSubject" value="Chemistry" onclick="showLinks('12th')"> Chemistry<br>
-  <input type="radio" name="12thSubject" value="Bio-Zoology" onclick="showLinks('12th')"> Bio-Zoology<br>
-  <input type="radio" name="12thSubject" value="Bio-Botony" onclick="showLinks('12th')"> Bio-Botony<br>
-  <input type="radio" name="12thSubject" value="Computer" onclick="showLinks('12th')"> Computer<br>
-</div>
-<!-- You can add 11thSection and 12thSection like this format later -->
+                if (medium === 'Tamil') {
+                    subjectSelectE.style.display = 'none';
+                    subjectSelectT.style.display = 'block';
+                    setGroupSubjects(group, 'Tamil');
+                } else {
+                    subjectSelectT.style.display = 'none';
+                    subjectSelectE.style.display = 'block';
+                    setGroupSubjects(group, 'English');
+                }
+            } else {
+                document.querySelector('.card32').style.display = "none";
+                subjectSelectE.style.display = 'none';
+                subjectSelectT.style.display = 'none';
+            }
+            document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select a subject to view question papers.</h3>';
+        }
 
-<div id="12thtamilLinks" class="links">
-  <h4>12th Tamil Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-tamil-model-question-papers/">Tamil Question Paper</a></li>
-  </ul>
-</div>
+        function setSubjectsForTen(medium) {
+            const subjectSelect = medium === 'Tamil'
+                ? document.getElementById('subjectSelectt')
+                : document.getElementById('subjectSelecte');
 
-<div id="12thenglishLinks" class="links">
-  <h4>12th English Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-english-model-question-papers/">English Question Paper</a></li>
-  </ul>
-</div>
+            if (medium === 'Tamil') {
+                subjectSelect.innerHTML = `
+                <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                <option value="sub1">ஆங்கிலம்</option>
+                <option value="sub2">தமிழ்</option>
+                <option value="sub3">கணிதம்</option>
+                <option value="sub4">அறிவியல்</option>
+                <option value="sub5">சமூக அறிவியல்</option>
+            `;
+            } else {
+                subjectSelect.innerHTML = `
+                <option value="default">Select your Subject</option>
+                <option value="sub1">English</option>
+                <option value="sub2">Tamil</option>
+                <option value="sub3">Maths</option>
+                <option value="sub4">Science</option>
+                <option value="sub5">Social Science</option>
+            `;
+            }
+        }
+        function setGroupSubjects(group, medium) {
+            const subjectSelect = medium === 'Tamil'
+                ? document.getElementById('subjectSelectt')
+                : document.getElementById('subjectSelecte');
 
-<div id="12thmathsLinks" class="links">
-  <h4>12th Maths Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-maths-model-question-papers/">Maths Question Paper</a></li>
-  </ul>
-</div>
+            const subjects = {
+                Tamil: {
+                    CSE: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="sub1">ஆங்கிலம்</option>
+                    <option value="sub2">தமிழ்</option>
+                    <option value="sub3">கணிதம்</option>
+                    <option value="sub4">வேதியியல்</option>
+                    <option value="sub5">இயற்பியல்</option>
+                    <option value="sub6">கணினி அறிவியல</option>
+                `,
+                    Biology: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="sub1">ஆங்கிலம்</option>
+                    <option value="sub2">தமிழ்</option>
+                    <option value="sub3">கணிதம்</option>
+                    <option value="sub4">வேதியியல்</option>
+                    <option value="sub5">இயற்பியல்</option>
+                    <option value="sub6">உயிரியல்</option>
+                `,
+                    BusinessMaths: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="sub1">ஆங்கிலம்</option>
+                    <option value="sub2">தமிழ்</option>
+                    <option value="sub3">கணக்கியல்</option>
+                    <option value="sub4">பொருளியல்</option>
+                    <option value="sub5">வணிகவியல்</option>
+                    <option value="sub6">வணிகக் கணிதம்</option>
+                `,
+                    Commerce: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="sub1">ஆங்கிலம்</option>
+                    <option value="sub2">தமிழ்</option>
+                    <option value="sub3">கணக்கியல்</option>
+                    <option value="sub4">பொருளியல்</option>
+                    <option value="sub5">வணிகவியல்</option>
+                    <option value="sub6">கணினி பயன்பாடு</option>
+                `,
+                    PureScience: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="sub1">ஆங்கிலம்</option>
+                    <option value="sub2">தமிழ்</option>
+                    <option value="sub3">உயிரியல்</option>
+                    <option value="sub4">வேதியியல்</option>
+                    <option value="sub5">இயற்பியல்</option>
+                    <option value="sub6">கணினி அறிவியல</option>
+                `
+                },
+                English: {
+                    CSE: `
+                    <option value="default">Select your Subject</option>
+                    <option value="sub1">English</option>
+                    <option value="sub2">Tamil</option>
+                    <option value="sub3">Maths</option>
+                    <option value="sub4">Chemistry</option>
+                    <option value="sub5">Physics</option>
+                    <option value="sub6">Computer Science</option>
+                `,
+                    Biology: `
+                    <option value="default">Select your Subject</option>
+                    <option value="sub1">English</option>
+                    <option value="sub2">Tamil</option>
+                    <option value="sub3">Maths</option>
+                    <option value="sub4">Chemistry</option>
+                    <option value="sub5">Physics</option>
+                    <option value="sub6">Biology</option>
+                `,
+                    BusinessMaths: `
+                    <option value="default">Select your Subject</option>
+                    <option value="sub1">English</option>
+                    <option value="sub2">Tamil</option>
+                    <option value="sub3">Accountancy</option>
+                    <option value="sub4">Economics</option>
+                    <option value="sub5">Commerce</option>
+                    <option value="sub6">Business Maths</option>
+                `,
+                    Commerce: `
+                    <option value="default">Select your Subject</option>
+                    <option value="sub1">English</option>
+                    <option value="sub2">Tamil</option>
+                    <option value="sub3">Accountancy</option>
+                    <option value="sub4">Economics</option>
+                    <option value="sub5">Commerce</option>
+                    <option value="sub6">Computer Application</option>
+                `,
+                    PureScience: `
+                    <option value="default">Select your Subject</option>
+                    <option value="sub1">English</option>
+                    <option value="sub2">Tamil</option>
+                    <option value="sub3">Biology</option>
+                    <option value="sub4">Chemistry</option>
+                    <option value="sub5">Physics</option>
+                    <option value="sub6"> Computer Science</option>
+                `
+                }
+            };
 
-<div id="12thphysicsLinks" class="links">
-  <h4>12th Physics Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-physics-model-question-papers/#google_vignette">Physics Question Paper</a></li>
-  </ul>
-</div>
-
-<div id="12thchemistryLinks" class="links">
-  <h4>12th Chemistry Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-chemistry-model-question-papers/">Chemistry Question Paper</a></li>
-  </ul>
-</div>
-
-<div id="12thbio-botonyLinks" class="links">
-  <h4>12th Bio-Botony Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-biology-model-question-papers/">Biology Question Paper</a></li>
-  </ul>
-</div>
-
-<div id="12thbio-zoologyLinks" class="links">
-  <h4>12th Bio-Zoology Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-biology-model-question-papers/">Biology Question Paper</a></li>
-  </ul>
-</div>
-
-<div id="12thcomputerLinks" class="links">
-  <h4>12th Computer Question Paper</h4>
-  <ul>
-    <li><a href="https://samacheerkalvi.guru/tamil-nadu-12th-computer-science-model-question-papers/">Computer Question Paper</a></li>
-  </ul>
-</div>
-
+            subjectSelect.innerHTML = subjects[medium][group] || '';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html><br><br>
-<?php include('footer.php'); ?>
+
+</html>

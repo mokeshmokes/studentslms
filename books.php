@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student_Friendly / Guides</title>
+    <title>Student_Friendly / Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" />
@@ -253,13 +253,22 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                     </div>
                 </div>
+
+                <div class="row" style="margin-bottom: 10%;">
+                    <div class="col-md-12">
+                        <div class="card-selection card33">
+                            <h2 style="margin-left: 20px;"> SELECT VOLUME</h2>
+                            <select id="volumeSelect" onchange="updateIframeContent()">
+                                <option value="default">Select Volume</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-6">
                 <div class="card4">
-                    <div id="contentArea" style="width: 100%; height: 100%; padding: 20px; overflow-y: auto;">
-                        <h3 style="margin: 20px; text-align: center; color: #006ceb;">Welcome! Please select your Class, Medium, Group (if applicable), and Subject to view guides.</h3>
-                    </div>
+                    <iframe id="contentIframe" style="width: 100%; height: 100%; border: none;"></iframe>
                 </div>
             </div>
         </div>
@@ -271,7 +280,9 @@ if (session_status() === PHP_SESSION_NONE) {
     <script>
         let medium = '';
         let currentClass = '';
-        
+        const volumeSubjects = ['Maths', 'Chemistry', 'Physics'];
+        const zoologyBotanySubjects = ['Biology'];
+
         const groups = {
             English: {
                 default: "Select your group",
@@ -291,47 +302,118 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         };
 
-        // Guide content mapping
-        const guideData = {
-            '10th': {
-                'Tamil': '<iframe src="pdf/10th-Tamil-Kavimani-Guide-Sample-Notes-PDF-Download.pdf" width="100%" height="700px"></iframe>',
-                'English': '<iframe src="pdf/Namma-Kalvi-10th-English-Special-Guide-Way-to-Success-221327.pdf" width="100%" height="700px"></iframe>',
-                'Maths': '<h4><i class="fas fa-calculator"></i> 10th Maths</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-10th-maths-guide/" target="_blank" rel="noopener noreferrer">Maths All Lessons</a></li></ul>',
-                'Science': '<h4><i class="fas fa-flask"></i> 10th Science</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-10th-science-guide/" target="_blank" rel="noopener noreferrer">Science All Lessons</a></li></ul>',
-                'Social Science': '<h4><i class="fas fa-globe"></i> 10th Social Science</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-10th-social-science-guide/" target="_blank" rel="noopener noreferrer">Social Science All Lessons</a></li></ul>'
+        // --- Subject URL Mapping ---
+        // NOTE: The issue is likely in these 10th-grade links being blocked by Google Drive.
+        // If the problem persists, PLEASE REPLACE THESE WITH PUBLISHED OR DIRECT SERVER LINKS.
+        const subjectUrls = {
+            'English': {
+                '10th': {
+                    'English': 'https://drive.google.com/file/d/1nAI9H50QiuwjthJUBs61lny2g9ZPO-2_/preview',
+                    'Tamil': 'https://drive.google.com/file/d/1UJv_5LBa2-LgP-pRbdYA0xqntyCvT7IY/preview',
+                    'Maths': 'https://drive.google.com/file/d/1s37U1aoD1bLMpmUTrsqLIgbGBFg8hJzM/preview',
+                    'Science': 'https://drive.google.com/file/d/1LjUfRhQeZfOhBcFha7AsDxGergssCbGm/preview',
+                    'Social Science': 'https://drive.google.com/file/d/1C2XwYpeJ1YCO6A8L_EyMTERRQjuzzxsx/preview',
+                },
+                '11th': {
+                    'English': 'https://drive.google.com/file/d/1pLZyfO_AqRDyBojJhm_QJPds44IpPXn4/preview',
+                    'Tamil': 'https://drive.google.com/file/d/1J8DpHfWCrAMgsUkOObY8wHNYIwmnLbeI/preview',
+                    'Maths V1': 'https://drive.google.com/file/d/1yM7Va8_oM0ER2zbxEWO8r8haPc2qjxIb/preview',
+                    'Maths V2': 'https://drive.google.com/file/d/1tVmHV2J0JIXZYi4C-zmZZw-nfOGTtttA/preview',
+                    'Chemistry V1': 'https://drive.google.com/file/d/1OteuDBJObz6nAIbwxr0ew5B35BpPGWrc/preview',
+                    'Chemistry V2': 'https://drive.google.com/file/d/1N8I9tN05gjaw1RdnWatZxYWETn0xUCq3/preview',
+                    'Physics V1': 'https://drive.google.com/file/d/1hhsJldFqVwlhHrCh7pVplRDwf1w9gyym/preview',
+                    'Physics V2': 'https://drive.google.com/file/d/1wNZFDuEL3Uo9I6MxbI5ihiVfqKxJOcHR/preview',
+                    'Biology Zoology': 'https://drive.google.com/file/d/15z2v64nFUwTdEu_VHpz0DE9EgOB6n6wY/preview', 
+                    'Biology Botany': 'https://drive.google.com/file/d/15bih7IuswCn7ljQdR72hbRymSthM2jHw/preview', 
+                    'Computer Science': 'https://drive.google.com/file/d/1D5M3WmSzBrG2Fy9_-XqRnZHgqHaHq_eT/preview',
+                    'Accountancy': 'https://drive.google.com/file/d/1GHyto5L2HkazixAprjMO7t3IccTYyfBy/preview',
+                    'Economics': 'https://drive.google.com/file/d/1cD0Iohbv4Mf5BrXrJLNz8jQ2yPrZkpSJ/preview',
+                    'Commerce': 'https://drive.google.com/file/d/1M5KNAmJgIj3fdzXpNIogpNhCAEYL_wbY/preview',
+                    'Business Maths': 'https://drive.google.com/file/d/1a5d0crx5O7eh91_28CHsSNDXsJE1PEnF/preview',
+                    'Computer Application': 'https://drive.google.com/file/d/16cWaZBRdjVtXY__MAvSVmuioSdazcRXO/preview',
+                },
+                '12th': {
+                    'English': 'https://drive.google.com/file/d/1iyicKzBvQjWJ3btZqA75ruLN_BGzUQKI/preview',
+                    'Tamil': 'https://drive.google.com/file/d/1nJHRDeqcSD7d_EEh6oum8kUGRfvkmQrt/preview',
+                    'Maths V1': 'https://drive.google.com/file/d/1CoWbBJq2GZR1wpE0Q_ww5rh8AS8YXb6T/preview',
+                    'Maths V2': 'https://drive.google.com/file/d/1Ebwo257NuhgK8rQ0bC-195QCYhl81HXg/preview',
+                    'Chemistry V1': 'https://drive.google.com/file/d/1GopjsZ6QaoGipA9JJWatB-EFdoM5Tmp4/preview',
+                    'Chemistry V2': 'https://drive.google.com/file/d/1YcS9JCfwjO4199s2UPyWSyyCRf-_V-hg/preview',
+                    'Physics V1': 'https://drive.google.com/file/d/1Iwii17WU0jTrwt-mnnWyo_TGsu0EvFKJ/preview',
+                    'Physics V2': 'https://drive.google.com/file/d/1XLBuke3BecH-Y0SbdfUS6_CZ7eUO6D6j/preview',
+                    'Biology Zoology': 'https://drive.google.com/file/d/1eE13crIFrlXVu6FSYzMcF3k0SoATVkYl/preview', 
+                    'Biology Botany': 'https://drive.google.com/file/d/1ytX9xdG-f_uGXx25v2Zm69o3grlsy7bz/preview', 
+                    'Computer Science': 'https://drive.google.com/file/d/1woppyG16Lp5JhGs2CEKz-IZoaES49wMl/preview',
+                    'Accountancy': 'https://drive.google.com/file/d/1NQor9XLPkMzr-oJJbeaxZDk2RvSKCfTd/preview',
+                    'Economics': 'https://drive.google.com/file/d/1hMYc7qcEO-6xM4DZYDcBKjv2mchRuVzQ/preview',
+                    'Commerce': 'https://drive.google.com/file/d/1e4F8fsOSQ2erH8_OB5vnz2LZKvwn_z7a/preview',
+                    'Business Maths': 'https://drive.google.com/file/d/1aPlg7bsP99Q1XU2n7i18nVVUtwth3U3O/preview',
+                    'Computer Application': 'https://drive.google.com/file/d/1HdBgWw1BSppQFQTOix4XioxPkcZDVPot/preview',
+                }
             },
-            '11th': {
-                'Tamil': '<h4><i class="fas fa-language"></i> 11th Tamil</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-tamil-book-solutions/" target="_blank" rel="noopener noreferrer">All Units</a></li></ul>',
-                'English': '<h4><i class="fas fa-book-open"></i> 11th English</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-english-book-solutions/" target="_blank" rel="noopener noreferrer">All Units</a></li></ul>',
-                'Maths': '<h4><i class="fas fa-calculator"></i> 11th Maths</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-Maths-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Chemistry': '<h4><i class="fas fa-flask"></i> 11th Chemistry</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-Chemistry-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Physics': '<h4><i class="fas fa-atom"></i> 11th Physics</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-Physics-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Biology': '<h4><i class="fas fa-paw"></i> 11th Bio-Zoology</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-bio-zoology-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Computer Science': '<h4><i class="fas fa-laptop-code"></i> 11th Computer</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-computer-science-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Accountancy': '<h4><i class="fas fa-calculator"></i> 11th Accountancy</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-accountancy-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Economics': '<h4><i class="fas fa-chart-line"></i> 11th Economics</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-economics-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Commerce': '<h4><i class="fas fa-briefcase"></i> 11th Commerce</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-commerce-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Business Maths': '<h4><i class="fas fa-calculator"></i> 11th Business Maths</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-business-maths-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Computer Application': '<h4><i class="fas fa-laptop"></i> 11th Computer Application</h4><ul><li><a href="https://samacheerkalvi.guru/samacheer-kalvi-11th-computer-application-book-solutions/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>'
-            },
-            '12th': {
-                'Tamil': '<h4><i class="fas fa-language"></i> 12th Tamil</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-tamil-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'English': '<h4><i class="fas fa-book-open"></i> 12th English</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-english-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Maths': '<h4><i class="fas fa-calculator"></i> 12th Maths</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-maths-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Chemistry': '<h4><i class="fas fa-flask"></i> 12th Chemistry</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-chemistry-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Physics': '<h4><i class="fas fa-atom"></i> 12th Physics</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-physics-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Biology': '<h4><i class="fas fa-paw"></i> 12th Bio-Zoology</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-bio-zoology-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Computer Science': '<h4><i class="fas fa-laptop-code"></i> 12th Computer</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-computer-science-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Accountancy': '<h4><i class="fas fa-calculator"></i> 12th Accountancy</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-accountancy-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Economics': '<h4><i class="fas fa-chart-line"></i> 12th Economics</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-economics-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Commerce': '<h4><i class="fas fa-briefcase"></i> 12th Commerce</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-commerce-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Business Maths': '<h4><i class="fas fa-calculator"></i> 12th Business Maths</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-business-maths-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>',
-                'Computer Application': '<h4><i class="fas fa-laptop"></i> 12th Computer Application</h4><ul><li><a href="https://samacheerkalvi.guide/samacheer-kalvi-12th-computer-application-guide/" target="_blank" rel="noopener noreferrer">All Lessons</a></li></ul>'
+            'Tamil': {
+                '10th': {
+                    'English': 'https://drive.google.com/file/d/1nAI9H50QiuwjthJUBs61lny2g9ZPO-2_/preview',
+                    'Tamil': 'https://drive.google.com/file/d/1UJv_5LBa2-LgP-pRbdYA0xqntyCvT7IY/preview',
+                    'Maths': 'https://drive.google.com/file/d/1u1XrFDjg2i-2HRbQRUwyd-z4ucmaNznk/preview',
+                    'Science': 'https://drive.google.com/file/d/19WgD3TqZhSqo2U-3J4Ci-Mt1JVHxmU9n/preview',
+                    'Social Science': 'https://drive.google.com/file/d/1CKSl7FgzXEbz9Fqam_5oyDL2nwSQXsoX/preview',
+                },
+                '11th': {
+                    'English': 'https://drive.google.com/file/d/1pLZyfO_AqRDyBojJhm_QJPds44IpPXn4/preview',
+                    'Tamil': 'https://drive.google.com/file/d/1J8DpHfWCrAMgsUkOObY8wHNYIwmnLbeI/preview',
+                    'Maths V1': 'https://drive.google.com/file/d/1JQoY_do6tFbXA3O6ZyAXTyjTHpMBShhG/preview',
+                    'Maths V2': 'https://drive.google.com/file/d/1lnuUojN4tneKSA_SahTUYZvhvYjWWkVd/preview',
+                    'Chemistry V1': 'https://drive.google.com/file/d/1reEzM0fPVCdMMoF6T1Cp9_6i0sVeXS10/preview',
+                    'Chemistry V2': 'https://drive.google.com/file/d/1qcXi4RMMGCbN-oUE6qGGEEN9FeSRPktp/preview',
+                    'Physics V1': 'https://drive.google.com/file/d/1_lKmwhJkUM0_STH-5UkkDGjZPTHINZjX/preview',
+                    'Physics V2': 'https://drive.google.com/file/d/1BCk4DvaXphn0KtStucnza9hC3VJ5spNd/preview',
+                    'Biology Zoology': 'https://drive.google.com/file/d/1iOGssnVKOxe5q_IHAJ6nGW1hMxLr7Xpk/preview', 
+                    'Biology Botany': 'https://drive.google.com/file/d/1zwYehp9TDw88NiSuk0PhLu88YQnvbZfV/preview', 
+                    'Computer Science': 'https://drive.google.com/file/d/1e63MJx-1lILG3dectOSRmaeuCk6oQSIa/preview',
+                    'Accountancy': 'https://drive.google.com/file/d/13lZGxcbC9o1Fzt9DwnrsJ2njbMnLQSYl/preview',
+                    'Economics': 'https://drive.google.com/file/d/1NhoHxFY7XpJIMj58KCAiegZNZxdw5xXx/preview',
+                    'Commerce': 'https://drive.google.com/file/d/1OaM3YZy7EB_0C7FG7t38YFKNYYocRTYx/preview',
+                    'Business Maths': 'https://drive.google.com/file/d/1TxKxeqsmtJTdaICoUDCkRzKIMjb7SZfT/preview',
+                    'Computer Application': 'https://drive.google.com/file/d/14jSh1DosByIc3pmJHWEwWWJNsD0XfFKG/preview',
+                },
+                '12th': {
+                    'English': 'https://drive.google.com/file/d/1iyicKzBvQjWJ3btZqA75ruLN_BGzUQKI/preview',
+                    'Tamil': 'https://drive.google.com/file/d/1nJHRDeqcSD7d_EEh6oum8kUGRfvkmQrt/preview',
+                    'Maths V1': 'https://drive.google.com/file/d/1Pe9CYK5VCyApDN7B5lBGZxLV2rmFg_F3/preview',
+                    'Maths V2': 'https://drive.google.com/file/d/1eODlPw6MjaJfbc9UVNC4XocpBFf72vQq/preview',
+                    'Chemistry V1': 'https://drive.google.com/file/d/1Z0p0BAMn4DnisrpEHd9R1DWreibvfWbd/preview',
+                    'Chemistry V2': 'https://drive.google.com/file/d/16zBIZ3Kg9BCsXLrRK_BghKenx3fIdlVw/preview',
+                    'Physics V1': 'https://drive.google.com/file/d/1EQ5S2LgeEyXUZYb7W4OFSIHfV4faOyvo/preview',
+                    'Physics V2': 'https://drive.google.com/file/d/1DTDOq5pgxyNceNHPu9yHXeeul2LpGSDQ/preview',
+                    'Biology Zoology': 'https://drive.google.com/file/d/1VQ8uiFUpzIiUhULDst72F0RKVPtLxbwu/preview', 
+                    'Biology Botany': 'https://drive.google.com/file/d/1xFl3zm-MQYXuvwoVcQspLjWYjXRyVioe/preview', 
+                    'Computer Science': 'https://drive.google.com/file/d/1yaPIlhn_WLvrrRIU7QhSlgErj-Rm_g7D/preview',
+                    'Accountancy': 'https://drive.google.com/file/d/1rMuuQgKpb26aZiAX6bF6L64ltp1kS87d/preview',
+                    'Economics': 'https://drive.google.com/file/d/1vuizmjx31iuRrSh4DvrL40ecg5E2zdDc/preview',
+                    'Commerce': 'https://drive.google.com/file/d/1Bd0V35VoISJLFezuMInnk07ufoAPRRXj/preview',
+                    'Business Maths': 'https://drive.google.com/file/d/1DXfoIp-8YB9zLuAUp6FZRxuvsY2acVcB/preview',
+                    'Computer Application': 'https://drive.google.com/file/d/1CWzQB5OoKZxKXTB9RXlBnm4lc8DNdezr/preview',
+                }
             }
         };
 
+        function getSubjectUrl(subjectKey) {
+            return subjectUrls[medium] && subjectUrls[medium][currentClass]
+                ? subjectUrls[medium][currentClass][subjectKey]
+                : null;
+        }
+
         function getSubjectNameFromOption(optionText) {
             let text = optionText.trim();
+            // Remove split markers before translation
+            if (text.includes('Volume 1') || text.includes('தொகுதி 1')) text = text.replace(/ Volume 1| தொகுதி 1/, '');
+            if (text.includes('Volume 2') || text.includes('தொகுதி 2')) text = text.replace(/ Volume 2| தொகுதி 2/, '');
+            if (text.includes('Zoology')) text = text.replace(' Zoology', '');
+            if (text.includes('Botany')) text = text.replace(' Botany', '');
+            if (text.endsWith(' V1')) text = text.slice(0, -3); 
+            if (text.endsWith(' V2')) text = text.slice(0, -3);
+
             const tamilToEnglish = {
                 "ஆங்கிலம்": "English",
                 "தமிழ்": "Tamil",
@@ -348,23 +430,133 @@ if (session_status() === PHP_SESSION_NONE) {
                 "வணிகக் கணிதம்": "Business Maths",
                 "கணினி பயன்பாடு": "Computer Application",
             };
-            return medium === 'English' ? text : tamilToEnglish[text] || text;
+
+            return medium === 'English' ? text : tamilToEnglish[text] || null;
         }
 
+        function setSubSubjectOptions(subjectKey) {
+            const subSelect = document.getElementById('volumeSelect');
+            const card33 = document.querySelector('.card33');
+            const isAdvancedClass = (currentClass === '11th' || currentClass === '12th');
+
+            if (!isAdvancedClass) {
+                 card33.style.display = "none";
+                 return;
+            }
+
+            let optionsHtml = '';
+            let headerText = '';
+            let isRequired = false;
+
+            // 1. Handle Volume Subjects (Maths, Chemistry, Physics)
+            if (volumeSubjects.includes(subjectKey)) {
+                isRequired = true;
+                if (medium === 'Tamil') {
+                    headerText = subjectKey + " தொகுதியை தேர்ந்தெடுக்கவும்";
+                    optionsHtml = `
+                        <option value="default">தொகுதியைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="V1">${subjectKey} தொகுதி 1</option>
+                        <option value="V2">${subjectKey} தொகுதி 2</option>
+                    `;
+                } else {
+                    headerText = `SELECT VOLUME FOR ${subjectKey.toUpperCase()}`;
+                    optionsHtml = `
+                        <option value="default">Select Volume</option>
+                        <option value="V1">${subjectKey} Volume 1</option>
+                        <option value="V2">${subjectKey} Volume 2</option>
+                    `;
+                }
+            } 
+            // 2. Handle Biology Split (Zoology/Botany)
+            else if (zoologyBotanySubjects.includes(subjectKey)) {
+                isRequired = true;
+                if (medium === 'Tamil') {
+                    headerText = "பிரிவைத் தேர்ந்தெடுக்கவும்";
+                    optionsHtml = `
+                        <option value="default">பிரிவைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="Zoology">விலங்கியல்</option>
+                        <option value="Botany">தாவரவியல்</option>
+                    `;
+                } else {
+                    headerText = `SELECT BRANCH FOR ${subjectKey.toUpperCase()}`;
+                    optionsHtml = `
+                        <option value="default">Select Branch</option>
+                        <option value="Zoology">Zoology</option>
+                        <option value="Botany">Botany</option>
+                    `;
+                }
+            }
+
+            if (isRequired) {
+                card33.style.display = "block";
+                document.querySelector('.card33 h2').textContent = headerText;
+                subSelect.innerHTML = optionsHtml;
+            } else {
+                card33.style.display = "none";
+                subSelect.value = 'default';
+                updateIframeContent(); 
+            }
+        }
+
+        // --- FIXED: handleSubjectChange ensures 10th grade immediately calls updateIframeContent ---
         function handleSubjectChange() {
             const activeSelect = document.getElementById(medium === 'English' ? 'subjectSelecte' : 'subjectSelectt');
             const selectedText = activeSelect.options[activeSelect.selectedIndex].text;
-            const selectedValue = activeSelect.value;
-            
-            if (selectedValue && selectedValue !== 'default' && selectedText) {
-                const subjectKey = getSubjectNameFromOption(selectedText);
-                const content = guideData[currentClass] && guideData[currentClass][subjectKey] 
-                    ? guideData[currentClass][subjectKey] 
-                    : `<h3 style="margin: 20px; text-align: center; color: #006ceb;">Guide for ${subjectKey} (${currentClass}) not available.</h3>`;
-                
-                document.getElementById('contentArea').innerHTML = content;
+            const selectedKey = getSubjectNameFromOption(selectedText);
+            const isAdvancedClass = (currentClass === '11th' || currentClass === '12th');
+
+            if (isAdvancedClass && selectedKey && selectedKey !== 'default') {
+                setSubSubjectOptions(selectedKey);
             } else {
-                document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select a subject to view guides.</h3>';
+                // This path is taken for all 10th grade subjects.
+                document.querySelector('.card33').style.display = "none";
+                document.getElementById('volumeSelect').value = 'default';
+                updateIframeContent(); 
+            }
+        }
+
+        function updateIframeContent() {
+            const subjectSelectE = document.getElementById('subjectSelecte');
+            const subjectSelectT = document.getElementById('subjectSelectt');
+            const iframe = document.getElementById('contentIframe');
+            const subSelect = document.getElementById('volumeSelect');
+
+            const activeSelect = subjectSelectE.style.display !== 'none' ? subjectSelectE : subjectSelectT;
+
+            const selectedOption = activeSelect.options[activeSelect.selectedIndex];
+            const selectedText = selectedOption ? selectedOption.text : null;
+            const selectedValue = selectedOption ? selectedOption.value : null;
+
+            if (selectedValue && selectedValue !== 'default' && selectedText) {
+                const subjectKeyBase = getSubjectNameFromOption(selectedText);
+                let finalKey = subjectKeyBase;
+
+                const isSplitSubject = volumeSubjects.includes(subjectKeyBase) || zoologyBotanySubjects.includes(subjectKeyBase);
+                const isSubSubjectCardVisible = document.querySelector('.card33').style.display === "block";
+
+                // Check for Volume/Branch requirement
+                if (isSplitSubject && isSubSubjectCardVisible) {
+                    if (subSelect.value === 'default') {
+                        iframe.src = 'about:blank';
+                        iframe.contentWindow.document.write('<h3 style="margin: 20px;">Please select the required volume or branch.</h3>');
+                        return;
+                    }
+                    // Final key includes the split (e.g., 'Maths V1' or 'Biology Zoology')
+                    finalKey = `${subjectKeyBase} ${subSelect.value}`;
+                }
+
+                const url = getSubjectUrl(finalKey);
+
+                if (url) {
+                    iframe.src = url;
+                } else {
+                    iframe.src = 'about:blank';
+                    iframe.contentWindow.document.write(`<h3 style="margin: 20px;">Document for ${finalKey} (${currentClass} ${medium} Medium) not found.</h3>`);
+                }
+            } else {
+                iframe.src = 'about:blank';
+                document.getElementById('contentIframe').src = 'about:blank';
+                iframe.contentWindow.document.write('<h3 style="margin: 20px;">Please select a subject to view content.</h3>');
             }
         }
 
@@ -383,10 +575,15 @@ if (session_status() === PHP_SESSION_NONE) {
         function hideGroupAndSubject() {
             document.querySelector('.card31').style.display = "none";
             document.querySelector('.card32').style.display = "none";
+            document.querySelector('.card33').style.display = "none";
             document.getElementById('groupSelect').value = 'default';
             document.getElementById('subjectSelecte').innerHTML = '';
             document.getElementById('subjectSelectt').innerHTML = '';
-            document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select your Class, Medium, Group (if applicable), and Subject to view guides.</h3>';
+            document.getElementById('volumeSelect').value = 'default';
+
+            // Clear iFrame on major navigation reset
+            document.getElementById('contentIframe').src = 'about:blank';
+            document.getElementById('contentIframe').contentWindow.document.write('<h3 style="margin: 20px;">Please select a subject to view content.</h3>');
         }
 
         function handleClassChange(cls) {
@@ -418,7 +615,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
         function ten() {
             document.querySelector('.card31').style.display = "none";
+            document.querySelector('.card33').style.display = "none";
             document.querySelector('.card32').style.display = "block";
+
             document.getElementById('groupSelect').value = 'default';
 
             if (medium === 'Tamil') {
@@ -430,11 +629,15 @@ if (session_status() === PHP_SESSION_NONE) {
                 document.getElementById('subjectSelecte').style.display = 'block';
                 setSubjectsForTen('English');
             }
+            // Trigger a final iFrame content update check
+            updateIframeContent(); 
         }
 
         function eleOrTwel() {
             document.querySelector('.card31').style.display = "block";
             document.querySelector('.card32').style.display = "none";
+            document.querySelector('.card33').style.display = "none";
+
             document.getElementById('subjectSelecte').innerHTML = '';
             document.getElementById('subjectSelectt').innerHTML = '';
             document.getElementById('groupSelect').value = 'default';
@@ -444,6 +647,9 @@ if (session_status() === PHP_SESSION_NONE) {
             const group = document.getElementById('groupSelect').value;
             const subjectSelectE = document.getElementById('subjectSelecte');
             const subjectSelectT = document.getElementById('subjectSelectt');
+
+            document.querySelector('.card33').style.display = "none"; 
+            document.getElementById('volumeSelect').value = 'default';
 
             if (group !== 'default') {
                 document.querySelector('.card32').style.display = "block";
@@ -462,7 +668,9 @@ if (session_status() === PHP_SESSION_NONE) {
                 subjectSelectE.style.display = 'none';
                 subjectSelectT.style.display = 'none';
             }
-            document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select a subject to view guides.</h3>';
+
+            document.getElementById('contentIframe').src = 'about:blank';
+            document.getElementById('contentIframe').contentWindow.document.write('<h3 style="margin: 20px;">Please select a subject to view content.</h3>');
         }
 
         function setSubjectsForTen(medium) {
@@ -490,6 +698,7 @@ if (session_status() === PHP_SESSION_NONE) {
             `;
             }
         }
+
         function setGroupSubjects(group, medium) {
             const subjectSelect = medium === 'Tamil'
                 ? document.getElementById('subjectSelectt')
@@ -594,6 +803,16 @@ if (session_status() === PHP_SESSION_NONE) {
 
             subjectSelect.innerHTML = subjects[medium][group] || '';
         }
+        
+        // --- Event Listeners Setup ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('subjectSelecte').addEventListener('change', handleSubjectChange);
+            document.getElementById('subjectSelectt').addEventListener('change', handleSubjectChange);
+            document.getElementById('volumeSelect').addEventListener('change', updateIframeContent);
+
+            // Initial message
+            document.getElementById('contentIframe').contentWindow.document.write('<h3 style="margin: 20px;">Welcome! Please select your Class, Medium, Group (if applicable), and Subject.</h3>');
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>

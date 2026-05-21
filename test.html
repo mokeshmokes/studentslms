@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student_Friendly / Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" />
+  <style>
+    /* Base Styling */
+    body {
+      /* Note: bg2.jpeg is not included, so you'll need to provide it */
+      background-size: cover;
+      background-position: center;
+      font-family: "Lato", sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    /* Card 1: Header/Logo */
+    .card1 {
+      background-color: #006ceb;
+      color: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 5%;
+      padding: 20px;
+    }
+
+    /* Card 2: User Info */
+    .card2 {
+      background-color: white;
+      border-radius: 10px;
+      width: 95%;
+      opacity: 0.9;
+      padding: 5px;
+      margin-top: 6px;
+      box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .card2 h6 {
+      color: #000000;
+      margin-bottom: 0;
+      line-height: 1.2;
+    }
+
+    /* Selection Cards */
+    .card-selection {
+      background-color: white;
+      border-radius: 10px;
+      width: 100%;
+      padding: 5px 15px;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Specific card classes for initial display state */
+    .card3,
+    .card30,
+    .card31,
+    .card32,
+    .card33 {
+      display: none;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 15px;
+    }
+
+    .card3 {
+      display: block;
+    }
+
+    h2 {
+      color: #006ceb;
+      font-family: "Lato", sans-serif;
+      font-size: 1.5rem;
+      margin-left: 0 !important;
+    }
+
+    /* Styling for radio buttons and their labels */
+    input[type="radio"] {
+      margin: 15px;
+      transform: scale(1.3);
+      margin-left: 20px;
+      cursor: pointer;
+    }
+
+    .form-check-label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    /* Styling for select dropdowns */
+    #groupSelect,
+    #subjectSelecte,
+    #subjectSelectt,
+    #volumeSelect {
+      padding: 10px;
+      width: 90%;
+      margin: 10px auto;
+      display: block;
+      border-radius: 5px;
+      border: 1px solid #ced4da;
+    }
+
+    /* Card 4: Placeholder/Display Area */
+    .card4 {
+      background-color: white;
+      border-radius: 10px;
+      width: 100%;
+      height: 500px;
+      margin-top: 20px;
+      box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+      display: block;
+      margin-left: 0;
+    }
+
+    #short {
+      display: inline-block;
+      font-size: 40px;
+      font-weight: 700;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #s2 {
+      font-size: 4rem;
+      margin-right: 0.5rem;
+    }
+
+    #s3 {
+      font-size: 4rem;
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 480px) {
+      #short {
+        font-size: 20px;
+      }
+
+      #s2 {
+        font-size: 2rem;
+        margin-right: 0.25rem;
+      }
+
+      #s3 {
+        font-size: 2rem;
+        margin-right: 0.25rem;
+        margin-left: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card1">
+    <div class="row align-items-center">
+      <div class="col-md-6 d-flex align-items-center">
+        <i class="fa-solid fa-graduation-cap fa-4x me-2" id="s2"></i>
+        <span id="short">Student_Friendly</span>
+      </div>
+      <div class="col-md-6">
+        <div class="card2 row g-0">
+          <div class="col-auto d-flex align-items-center ps-2">
+            <i class="fa-solid fa-circle-user fa-3x" style="color: #000000;" id="s3"></i>
+          </div>
+          <div class="col-auto d-flex flex-column justify-content-center ps-3">
+            <h6>Hariharan N</h6>
+            <h6>Hariharan11ahmhss@gmail.com</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-selection card3">
+              <h2 style="margin-left: 20px;">SELECT CLASS</h2>
+              <div class="d-flex p-2">
+                <div class="form-check me-4">
+                  <input class="form-check-input" type="radio" id="10th" name="classs"
+                    onclick="handleClassChange('10th')" value="10th">
+                  <label class="form-check-label" for="10th">10th</label>
+                </div>
+                <div class="form-check me-4">
+                  <input class="form-check-input" type="radio" id="11th" name="classs"
+                    onclick="handleClassChange('11th')" value="11th">
+                  <label class="form-check-label" for="11th">11th</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="12th" name="classs"
+                    onclick="handleClassChange('12th')" value="12th">
+                  <label class="form-check-label" for="12th">12th</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-selection card30">
+              <h2 style="margin-left: 20px;">SELECT MEDIUM</h2>
+              <div class="d-flex p-2">
+                <div class="form-check me-4">
+                  <input class="form-check-input" type="radio" id="tam" name="Medium" onclick="tamil()" value="Tamil">
+                  <label class="form-check-label" for="tam">Tamil</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="eng" name="Medium" onclick="english()"
+                    value="English">
+                  <label class="form-check-label" for="eng">English</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-selection card31">
+              <h2 style="margin-left: 20px;"> SELECT GROUP</h2>
+              <select id="groupSelect" onchange="showSubject()">
+                <option value="default">Select your group</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card-selection card32">
+              <h2 style="margin-left: 20px;"> SELECT SUBJECT</h2>
+              <select id="subjectSelecte" style="display: none;" onchange="handleSubjectChange()"></select>
+              <select id="subjectSelectt" style="display: none;" onchange="handleSubjectChange()"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 10%;">
+          <div class="col-md-12">
+            <div class="card-selection card33">
+              <h2 style="margin-left: 20px;"> SELECT UNIT/VOLUME</h2>
+              <select id="volumeSelect" onchange="updateIframeContent()">
+                <option value="default">Select Unit/Volume</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card4">
+          <iframe id="contentIframe" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let medium = '';
+    let currentClass = '';
+    const volumeSubjects = ['Maths', 'Chemistry', 'Physics'];
+    const zoologyBotanySubjects = ['Biology'];
+    const splitSubjects = [...volumeSubjects, ...zoologyBotanySubjects]; // Subjects requiring Volume/Branch split
+
+    const groups = {
+      English: {
+        default: "Select your group",
+        CSE: "CSE",
+        Biology: "BIOLOGY",
+        BusinessMaths: "BUSINESS MATHS",
+        Commerce: "COMMERCE",
+        PureScience: "PURE SCIENCE"
+      },
+      Tamil: {
+        default: "உங்கள் குழுவைத் தேர்ந்தெடுக்கவும்",
+        CSE: "கணினி அறிவியல்",
+        Biology: "உயிரியல்",
+        BusinessMaths: "வணிகக் கணிதம்",
+        Commerce: "வணிகவியல்",
+        PureScience: "தூய அறிவியல்"
+      }
+    };
+
+    // --- Subject URL Mapping ---
+    // Values are objects containing unit_name and link
+    const subjectUrls = {
+      'English': {
+        '10th': {
+          'English': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" }
+          ],
+          'Tamil': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" }],
+
+          'Maths': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }],
+
+          'Science': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 17", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 18", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 19", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 20", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 21", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 22", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 23", link: "https://www.youtube.com/embed/10ENGU1" },
+          ],
+          'Social Science': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 17", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 18", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 19", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 20", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 21", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 22", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 23", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 24", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 25", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 26", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 27", link: "https://www.youtube.com/embed/10ENGU1" },],
+        },
+        // 11th subject for youtube
+        '11th': {
+          'English': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }],
+
+          'Tamil': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }],
+
+          'Maths V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Maths V2': [{ unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Chemistry V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Chemistry V2': [
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Physics V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Physics V2': [{ unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Biology Zoology': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Biology Botany': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Computer Science': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 17", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 18", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Accountancy': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Economics': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Commerce': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Business Maths': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Computer Application': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 17", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 18", link: "https://www.youtube.com/embed/10ENGU1" },],
+        },
+        // 12th subject for youtube
+        '12th': {
+          'English': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }],
+
+          'Tamil': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }],
+
+          'Maths V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Maths V2': [
+         { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Chemistry V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Chemistry V2': [{ unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Physics V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Physics V2': [{ unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Biology Zoology': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Biology Botany': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Computer Science': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Accountancy': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Economics': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Commerce': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Business Maths': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Computer Application': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 17", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 18", link: "https://www.youtube.com/embed/10ENGU1" },],
+        }
+      },
+      'Tamil': {
+        '10th': {
+          'English': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }
+          ],
+          'Tamil': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }],
+
+          'Maths': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Science': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 15", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 16", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 17", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 18", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 19", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 20", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 21", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 22", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 23", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Social Science': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 15", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 16", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 17", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 18", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 19", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 20", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 21", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 22", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 23", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 24", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 25", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 26", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 27", link: "https://www.youtube.com/embed/10TENGU1" }],
+        },
+        '11th': {
+          'English': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Tamil': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Maths V1': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Maths V2': [{ unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Chemistry V1': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Chemistry V2': [{ unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 15", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Physics V1': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Physics V2': [{ unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Biology Zoology': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Biology Botany': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 15", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Computer Science': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 15", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 16", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 17", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 18", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Accountancy': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Economics': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Commerce': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Business Maths': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Computer Application': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 11", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 12", link: "https://www.youtube.com/embed/10TENGU1" },
+           { unit_name: "அலகு 13", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 14", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 15", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 16", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 17", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 18", link: "https://www.youtube.com/embed/10TENGU1" },],
+        },
+        //12th subject for youtube(tamil)
+        '12th': {
+          'English': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Tamil': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Maths V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Maths V2': [{ unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Chemistry V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Chemistry V2': [
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Physics V1': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Physics V2': [
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" }, ],
+
+          'Biology Zoology': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Biology Botany': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Computer Science': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" },],
+
+          'Accountancy': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, ],
+
+          'Economics': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, ],
+          
+          'Commerce': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" }, ],
+
+          'Business Maths': [{ unit_name: "அலகு 1", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 2", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 3", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 4", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 5", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 6", link: "https://www.youtube.com/embed/10TENGU1" },
+          { unit_name: "அலகு 7", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 8", link: "https://www.youtube.com/embed/10TENGU1" }, 
+          { unit_name: "அலகு 9", link: "https://www.youtube.com/embed/10TENGU1" }, { unit_name: "அலகு 10", link: "https://www.youtube.com/embed/10TENGU1" },],
+
+          'Computer Application': [{ unit_name: "Unit 1", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 2", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 3", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 4", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 5", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 6", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 7", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 8", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 9", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 10", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 11", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 12", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 13", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 14", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 15", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 16", link: "https://www.youtube.com/embed/10ENGU1" }, { unit_name: "Unit 17", link: "https://www.youtube.com/embed/10ENGU1" },
+          { unit_name: "Unit 18", link: "https://www.youtube.com/embed/10ENGU1" },],
+        }
+      }
+    };
+
+    function getSubjectUrl(subjectKey) {
+      // NOTE: This function is simplified because direct subject links are no longer used for 10th grade
+      // But we keep it as a wrapper in case of future changes.
+      return subjectUrls[medium] && subjectUrls[medium][currentClass]
+        ? subjectUrls[medium][currentClass][subjectKey]
+        : null;
+    }
+
+    function getSubjectNameFromOption(optionText) {
+      let text = optionText.trim();
+      // Remove split markers before translation
+      if (text.includes('Volume 1') || text.includes('தொகுதி 1')) text = text.replace(/ Volume 1| தொகுதி 1/, '');
+      if (text.includes('Volume 2') || text.includes('தொகுதி 2')) text = text.replace(/ Volume 2| தொகுதி 2/, '');
+      if (text.includes('Zoology')) text = text.replace(' Zoology', '');
+      if (text.includes('Botany')) text = text.replace(' Botany', '');
+      if (text.endsWith(' V1')) text = text.slice(0, -3);
+      if (text.endsWith(' V2')) text = text.slice(0, -3);
+
+      const tamilToEnglish = {
+        "ஆங்கிலம்": "English", "தமிழ்": "Tamil", "கணிதம்": "Maths",
+        "அறிவியல்": "Science", "சமூக அறிவியல்": "Social Science",
+        "வேதியியல்": "Chemistry", "இயற்பியல்": "Physics", "உயிரியல்": "Biology",
+        "கணினி அறிவியல": "Computer Science", "வணிகக் கணக்கியல்": "Accountancy",
+        "பொருளியல்": "Economics", "வணிகவியல்": "Commerce",
+        "வணிகக் கணிதம்": "Business Maths", "கணினி பயன்பாடு": "Computer Application",
+      };
+
+      return medium === 'English' ? text : tamilToEnglish[text] || null;
+    }
+
+    // --- MODIFIED: setUnitOptions (Handles Units or Volume/Branch Selection) ---
+    function setUnitOptions(subjectKey, isSplitSelection = false) {
+      const subSelect = document.getElementById('volumeSelect');
+      const card33 = document.querySelector('.card33');
+
+      let optionsHtml = '';
+      let headerText = '';
+
+      // 1. If a split choice (V1/V2/Branch) was JUST made, load the final units.
+      if (isSplitSelection) {
+        // The subjectKey now includes the split (e.g., 'Maths V1')
+        let unitArray = subjectUrls[medium][currentClass][subjectKey];
+
+        headerText = (medium === 'Tamil') ? "அலகு தேர்ந்தெடுக்கவும்" : "SELECT UNIT";
+        optionsHtml = `<option value="default">${headerText}</option>`;
+
+        unitArray.forEach((unit) => {
+          optionsHtml += `<option value="${unit.link}">${unit.unit_name}</option>`;
+        });
+
+      }
+      // 2. If subject was just chosen, determine if we need split options OR direct units.
+      else {
+        if (splitSubjects.includes(subjectKey) && (currentClass === '11th' || currentClass === '12th')) {
+          // Load Volume/Branch options (Step 1 of the two-step process)
+          if (volumeSubjects.includes(subjectKey)) {
+            headerText = (medium === 'Tamil') ? "தொகுதியை தேர்ந்தெடுக்கவும்" : `SELECT VOLUME`;
+            optionsHtml = `<option value="default">${headerText}</option>`;
+            optionsHtml += `<option value="V1">${subjectKey} ${(medium === 'Tamil') ? 'தொகுதி 1' : 'Volume 1'}</option>`;
+            optionsHtml += `<option value="V2">${subjectKey} ${(medium === 'Tamil') ? 'தொகுதி 2' : 'Volume 2'}</option>`;
+          } else if (zoologyBotanySubjects.includes(subjectKey)) {
+            headerText = (medium === 'Tamil') ? "பிரிவைத் தேர்ந்தெடுக்கவும்" : `SELECT BRANCH`;
+            optionsHtml = `<option value="default">${headerText}</option>`;
+            optionsHtml += `<option value="Zoology">${(medium === 'Tamil') ? 'விலங்கியல்' : 'Zoology'}</option>`;
+            optionsHtml += `<option value="Botany">${(medium === 'Tamil') ? 'தாவரவியல்' : 'Botany'}</option>`;
+          }
+        } else {
+          // Load Units directly for 10th and non-split 11th/12th subjects
+          let unitArray = subjectUrls[medium][currentClass][subjectKey];
+
+          headerText = (medium === 'Tamil') ? "அலகு தேர்ந்தெடுக்கவும்" : "SELECT UNIT";
+          optionsHtml = `<option value="default">${headerText}</option>`;
+
+          unitArray.forEach((unit) => {
+            optionsHtml += `<option value="${unit.link}">${unit.unit_name}</option>`;
+          });
+        }
+      }
+
+      card33.style.display = "block";
+      document.querySelector('.card33 h2').textContent = headerText;
+      subSelect.innerHTML = optionsHtml;
+      subSelect.value = 'default';
+    }
+
+    // --- MODIFIED: handleSubjectChange (Checks and triggers the correct unit/volume flow) ---
+    function handleSubjectChange() {
+      const activeSelect = document.getElementById(medium === 'English' ? 'subjectSelecte' : 'subjectSelectt');
+      const selectedText = activeSelect.options[activeSelect.selectedIndex].text;
+      const selectedKey = activeSelect.options[activeSelect.selectedIndex].value; // Use value here for simplicity
+
+      // 1. Reset lower cards
+      document.querySelector('.card33').style.display = "none";
+      document.getElementById('volumeSelect').value = 'default';
+
+      if (selectedKey === 'default' || !selectedText) {
+        updateIframeContent(); // Clear iframe
+        return;
+      }
+
+      // All subjects now go to the Unit Selector.
+      const subjectKeyBase = getSubjectNameFromOption(selectedText);
+      setUnitOptions(subjectKeyBase, false); // Start the process, not a split selection yet
+    }
+
+    // --- MODIFIED: updateIframeContent (Handles final link retrieval for all types) ---
+    function updateIframeContent() {
+      const iframe = document.getElementById('contentIframe');
+      const subSelect = document.getElementById('volumeSelect');
+      const subSelectValue = subSelect.value;
+
+      if (subSelectValue === 'default') {
+        iframe.src = 'about:blank';
+        iframe.contentWindow.document.write('<h3 style="margin: 20px;">Please select the required unit or volume to view content.</h3>');
+        return;
+      }
+
+      const activeSubjectSelect = document.getElementById(medium === 'English' ? 'subjectSelecte' : 'subjectSelectt');
+      const selectedSubjectText = activeSubjectSelect.options[activeSubjectSelect.selectedIndex].text;
+      const subjectKeyBase = getSubjectNameFromOption(selectedSubjectText);
+
+      // Check if the current value is a split marker (V1, V2, Zoology, Botany)
+      const isSplitMarker = ['V1', 'V2', 'Zoology', 'Botany'].includes(subSelectValue);
+
+      // 1. Handle selection of Volume/Branch (triggers the next step: Unit loading)
+      if (isSplitMarker) {
+        const splitKey = `${subjectKeyBase} ${subSelectValue}`; // e.g., 'Maths V1'
+        setUnitOptions(splitKey, true); // Reload the card with unit links
+
+        // Clear iframe until the unit is selected
+        iframe.src = 'about:blank';
+        iframe.contentWindow.document.write('<h3 style="margin: 20px;">Please select a Chapter/Unit.</h3>');
+        return;
+      }
+      // 2. Handle selection of the final Unit Link (Value is the final link)
+      else {
+        const finalLink = subSelectValue;
+
+        if (finalLink && finalLink.startsWith('http')) {
+          iframe.src = finalLink;
+        } else {
+          iframe.src = 'about:blank';
+          iframe.contentWindow.document.write(`<h3 style="margin: 20px;">Content link is invalid or not available for this unit.</h3>`);
+        }
+      }
+    }
+
+    function setGroupOptions(lang) {
+      const select = document.getElementById('groupSelect');
+      const groupData = groups[lang];
+      let optionsHtml = '';
+
+      for (const [key, value] of Object.entries(groupData)) {
+        const optionValue = key === 'default' ? 'default' : key;
+        optionsHtml += `<option value="${optionValue}">${value}</option>`;
+      }
+      select.innerHTML = optionsHtml;
+    }
+
+    function hideGroupAndSubject() {
+      document.querySelector('.card31').style.display = "none";
+      document.querySelector('.card32').style.display = "none";
+      document.querySelector('.card33').style.display = "none";
+      document.getElementById('groupSelect').value = 'default';
+      document.getElementById('subjectSelecte').innerHTML = '';
+      document.getElementById('subjectSelectt').innerHTML = '';
+      document.getElementById('volumeSelect').value = 'default';
+
+      document.getElementById('contentIframe').src = 'about:blank';
+      document.getElementById('contentIframe').contentWindow.document.write('<h3 style="margin: 20px;">Please select a subject to view content.</h3>');
+    }
+
+    function handleClassChange(cls) {
+      currentClass = cls;
+      document.querySelector('.card30').style.display = "block";
+      document.querySelectorAll('input[name="Medium"]').forEach(r => r.checked = false);
+      hideGroupAndSubject();
+    }
+
+    function tamil() {
+      medium = 'Tamil';
+      setGroupOptions('Tamil');
+      if (currentClass === '10th') {
+        ten();
+      } else {
+        eleOrTwel();
+      }
+    }
+
+    function english() {
+      medium = 'English';
+      setGroupOptions('English');
+      if (currentClass === '10th') {
+        ten();
+      } else {
+        eleOrTwel();
+      }
+    }
+
+    function ten() {
+      document.querySelector('.card31').style.display = "none";
+      document.querySelector('.card33').style.display = "none";
+      document.querySelector('.card32').style.display = "block";
+
+      document.getElementById('groupSelect').value = 'default';
+
+      if (medium === 'Tamil') {
+        document.getElementById('subjectSelecte').style.display = 'none';
+        document.getElementById('subjectSelectt').style.display = 'block';
+        setSubjectsForTen('Tamil');
+      } else {
+        document.getElementById('subjectSelectt').style.display = 'none';
+        document.getElementById('subjectSelecte').style.display = 'block';
+        setSubjectsForTen('English');
+      }
+      updateIframeContent();
+    }
+
+    function eleOrTwel() {
+      document.querySelector('.card31').style.display = "block";
+      document.querySelector('.card32').style.display = "none";
+      document.querySelector('.card33').style.display = "none";
+
+      document.getElementById('subjectSelecte').innerHTML = '';
+      document.getElementById('subjectSelectt').innerHTML = '';
+      document.getElementById('groupSelect').value = 'default';
+    }
+
+    function showSubject() {
+      const group = document.getElementById('groupSelect').value;
+      const subjectSelectE = document.getElementById('subjectSelecte');
+      const subjectSelectT = document.getElementById('subjectSelectt');
+
+      document.querySelector('.card33').style.display = "none";
+      document.getElementById('volumeSelect').value = 'default';
+
+      if (group !== 'default') {
+        document.querySelector('.card32').style.display = "block";
+
+        if (medium === 'Tamil') {
+          subjectSelectE.style.display = 'none';
+          subjectSelectT.style.display = 'block';
+          setGroupSubjects(group, 'Tamil');
+        } else {
+          subjectSelectT.style.display = 'none';
+          subjectSelectE.style.display = 'block';
+          setGroupSubjects(group, 'English');
+        }
+      } else {
+        document.querySelector('.card32').style.display = "none";
+        subjectSelectE.style.display = 'none';
+        subjectSelectT.style.display = 'none';
+      }
+
+      document.getElementById('contentIframe').src = 'about:blank';
+      document.getElementById('contentIframe').contentWindow.document.write('<h3 style="margin: 20px;">Please select a subject to view content.</h3>');
+    }
+
+    function setSubjectsForTen(medium) {
+      const subjectSelect = medium === 'Tamil'
+        ? document.getElementById('subjectSelectt')
+        : document.getElementById('subjectSelecte');
+
+      const subjectsList = {
+        'English': (medium === 'Tamil') ? 'ஆங்கிலம்' : 'English',
+        'Tamil': (medium === 'Tamil') ? 'தமிழ்' : 'Tamil',
+        'Maths': (medium === 'Tamil') ? 'கணிதம்' : 'Maths',
+        'Science': (medium === 'Tamil') ? 'அறிவியல்' : 'Science',
+        'Social Science': (medium === 'Tamil') ? 'சமூக அறிவியல்' : 'Social Science',
+      };
+
+      let optionsHtml = `<option value="default">${(medium === 'Tamil') ? 'உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்' : 'Select your Subject'}</option>`;
+
+      Object.keys(subjectsList).forEach((key, index) => {
+        optionsHtml += `<option value="${key}">${subjectsList[key]}</option>`;
+      });
+
+      subjectSelect.innerHTML = optionsHtml;
+    }
+
+    function setGroupSubjects(group, medium) {
+      const subjectSelect = medium === 'Tamil'
+        ? document.getElementById('subjectSelectt')
+        : document.getElementById('subjectSelecte');
+
+      const subjects = {
+        Tamil: {
+          CSE: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="Maths">கணிதம்</option>
+                    <option value="Chemistry">வேதியியல்</option>
+                    <option value="Physics">இயற்பியல்</option>
+                    <option value="Computer Science">கணினி அறிவியல</option>
+                    <option value="English">ஆங்கிலம்</option>
+                    <option value="Tamil">தமிழ்</option>
+                `,
+          Biology: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="Maths">கணிதம்</option>
+                    <option value="Chemistry">வேதியியல்</option>
+                    <option value="Physics">இயற்பியல்</option>
+                    <option value="Biology">உயிரியல்</option>
+                    <option value="English">ஆங்கிலம்</option>
+                    <option value="Tamil">தமிழ்</option>
+                `,
+          BusinessMaths: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="Accountancy">வணிகக் கணக்கியல்</option>
+                    <option value="Economics">பொருளியல்</option>
+                    <option value="Commerce">வணிகவியல்</option>
+                    <option value="Business Maths">வணிகக் கணிதம்</option>
+                    <option value="English">ஆங்கிலம்</option>
+                    <option value="Tamil">தமிழ்</option>
+                `,
+          Commerce: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="Accountancy">வணிகக் கணக்கியல்</option>
+                    <option value="Economics">பொருளியல்</option>
+                    <option value="Commerce">வணிகவியல்</option>
+                    <option value="Computer Application">கணினி பயன்பாடு</option>
+                    <option value="English">ஆங்கிலம்</option>
+                    <option value="Tamil">தமிழ்</option>
+                `,
+          PureScience: `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="Biology">உயிரியல்</option>
+                    <option value="Chemistry">வேதியியல்</option>
+                    <option value="Physics">இயற்பியல்</option>
+                    <option value="Computer Science">கணினி அறிவியல</option>
+                    <option value="English">ஆங்கிலம்</option>
+                    <option value="Tamil">தமிழ்</option>
+                `
+        },
+        English: {
+          CSE: `
+                    <option value="default">Select your Subject</option>
+                    <option value="Maths">Maths</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="English">English</option>
+                    <option value="Tamil">Tamil</option>
+                `,
+          Biology: `
+                    <option value="default">Select your Subject</option>
+                    <option value="Maths">Maths</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Biology">Biology</option>
+                    <option value="English">English</option>
+                    <option value="Tamil">Tamil</option>
+                `,
+          BusinessMaths: `
+                    <option value="default">Select your Subject</option>
+                    <option value="Accountancy">Accountancy</option>
+                    <option value="Economics">Economics</option>
+                    <option value="Commerce">Commerce</option>
+                    <option value="Business Maths">Business Maths</option>
+                    <option value="English">English</option>
+                    <option value="Tamil">Tamil</option>
+                `,
+          Commerce: `
+                    <option value="default">Select your Subject</option>
+                    <option value="Accountancy">Accountancy</option>
+                    <option value="Economics">Economics</option>
+                    <option value="Commerce">Commerce</option>
+                    <option value="Computer Application">Computer Application</option>
+                    <option value="English">English</option>
+                    <option value="Tamil">Tamil</option>
+                `,
+          PureScience: `
+                    <option value="default">Select your Subject</option>
+                    <option value="Maths">Maths</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Biology">Biology</option>
+                    <option value="English">English</option>
+                    <option value="Tamil">Tamil</option>
+                `
+        }
+      };
+
+      subjectSelect.innerHTML = subjects[medium][group] || '';
+    }
+
+    // --- Event Listeners Setup ---
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('subjectSelecte').addEventListener('change', handleSubjectChange);
+      document.getElementById('subjectSelectt').addEventListener('change', handleSubjectChange);
+      document.getElementById('volumeSelect').addEventListener('change', updateIframeContent);
+
+      // Initial message
+      document.getElementById('contentIframe').contentWindow.document.write('<h3 style="margin: 20px;">Welcome! Please select your Class, Medium, Group (if applicable), and Subject.</h3>');
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

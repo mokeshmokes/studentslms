@@ -1,329 +1,557 @@
 <?php
-session_start(); // ✅ Must be at the top
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // ✅ Safe session start
+}
 ?>
-<?php include('headericon.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Class Guide Links</title>
-  <style>
-    .section, .links {
-      display: none;
-      margin-top: 15px;
-    }
-    li{
-      list-style-type: none;
-    }
-  </style>
-  <script>
-    function showSubjectOptions() {
-      document.querySelectorAll('.section').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.links').forEach(el => el.style.display = 'none');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student_Friendly / Videos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" />
+    <style>
+        body {
+            background-image: url(./image/WhatsApp\ Image\ 2025-09-28\ at\ 09.29.24_91e7c59a.jpg);
+            background-size: cover;
+            background-position: center;
+            font-family: "Lato", sans-serif;
+            background-color: #f8f9fa;
+        }
+        .card1 {
+            background-color: #006ceb;
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 5%;
+            padding: 20px;
+        }
+        .card2 {
+            background-color: white;
+            border-radius: 10px;
+            width: 95%;
+            opacity: 0.9;
+            padding: 5px;
+            margin-top: 6px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            margin-left: auto;
+            margin-right: 0;
+        }
+        .card2 h6 {
+            color: #000000;
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+        .card-selection {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            padding: 5px 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px 0px rgba(0, 0, 0, 0.1);
+        }
+        .card3,
+        .card30,
+        .card31,
+        .card32,
+        .card33 {
+            display: none;
+            width: 100%;
+            margin-left: 0;
+            margin-top: 15px;
+        }
+        .card3 {
+            display: block;
+        }
+        h2 {
+            color: #006ceb;
+            font-family: "Lato", sans-serif;
+            font-size: 1.5rem;
+            margin-left: 0 !important;
+        }
+        input[type="radio"] {
+            margin: 15px;
+            transform: scale(1.3);
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .form-check-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        #groupSelect,
+        #subjectSelecte,
+        #subjectSelectt {
+            padding: 10px;
+            width: 90%;
+            margin: 10px auto;
+            display: block;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        .card4 {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            box-shadow: 0 8px 16px 0px rgba(0, 0, 0, 0.2);
+            display: block;
+            margin-left: 0;
+        }
+        #short {
+            display: inline-block;
+            font-size: 40px;
+            font-weight: 700;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #s2 { font-size: 4rem; margin-right: 0.5rem; }
+        #s3 { font-size: 4rem; margin-right: 0.5rem; }
+        @media (max-width: 480px) {
+            #short { font-size: 20px; }
+            #s2 { font-size: 2rem; margin-right: 0.25rem; }
+            #s3 { font-size: 2rem; margin-right: 0.25rem; margin-left: 100px; }
+        }
+    </style>
+</head>
 
-      const selectedClass = document.querySelector('input[name="class"]:checked');
-      if (selectedClass) {
-        document.getElementById(selectedClass.value.toLowerCase() + 'Section').style.display = 'block';
-      }
-    }
+<body>
+    <div class="card1">
+        <div class="row align-items-center">
+            <div class="col-md-6 d-flex align-items-center">
+                <i class="fa-solid fa-graduation-cap fa-4x me-2" id="s2"></i>
+                <span id="short">Student_Friendly</span>
+            </div>
+            <div class="col-md-6">
+                <div class="card2 row g-0">
+                    <div class="col-auto d-flex align-items-center ps-2">
+                        <i class="fa-solid fa-circle-user fa-3x" style="color: #000000;" id="s3"></i>
+                    </div>
+                    <div class="col-auto d-flex flex-column justify-content-center ps-3">
+                        <h6><?php echo isset($_SESSION['username0']) ? $_SESSION['username0'] : 'Guest0'; ?><?php echo isset($_SESSION['username1']) ? $_SESSION['username1'] : 'Guest1'; ?></h6>
+                        <h6><?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'Not Available'; ?></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    function showLinks(className) {
-      document.querySelectorAll('.links').forEach(el => el.style.display = 'none');
-      const subject = document.querySelector(`input[name="${className}Subject"]:checked`);
-      if (subject) {
-        const id = className + subject.value.toLowerCase() + 'Links';
-        document.getElementById(id).style.display = 'block';
-      }
-    }
-  </script>
-</head><br><br>
-<body style="text-align: center;">
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card3">
+                            <h2 style="margin-left: 20px;">SELECT CLASS</h2>
+                            <div class="d-flex p-2">
+                                <div class="form-check me-4">
+                                    <input class="form-check-input" type="radio" id="10th" name="classs"
+                                        onclick="handleClassChange('10th')" value="10th">
+                                    <label class="form-check-label" for="10th">10th</label>
+                                </div>
+                                <div class="form-check me-4">
+                                    <input class="form-check-input" type="radio" id="11th" name="classs"
+                                        onclick="handleClassChange('11th')" value="11th">
+                                    <label class="form-check-label" for="11th">11th</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="12th" name="classs"
+                                        onclick="handleClassChange('12th')" value="12th">
+                                    <label class="form-check-label" for="12th">12th</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card30">
+                            <h2 style="margin-left: 20px;">SELECT MEDIUM</h2>
+                            <div class="d-flex p-2">
+                                <div class="form-check me-4">
+                                    <input class="form-check-input" type="radio" id="tam" name="Medium"
+                                        onclick="tamil()" value="Tamil">
+                                    <label class="form-check-label" for="tam">Tamil</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="eng" name="Medium"
+                                        onclick="english()" value="English">
+                                    <label class="form-check-label" for="eng">English</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<h3>Select Your Class:</h3>
-<form>
-  <input type="radio" name="class" value="10th" onclick="showSubjectOptions()"> 10th<br>
-  <input type="radio" name="class" value="11th" onclick="showSubjectOptions()"> 11th<br>
-  <input type="radio" name="class" value="12th" onclick="showSubjectOptions()"> 12th<br>
-</form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card31">
+                            <h2 style="margin-left: 20px;">SELECT GROUP</h2>
+                            <select id="groupSelect" onchange="showSubject()">
+                                <option value="default">Select your group</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-<!-- 10th Subjects -->
-<div id="10thSection" class="section">
-  <h4>Select Subject (10th):</h4>
-  <input type="radio" name="10thSubject" value="Tamil" onclick="showLinks('10th')"> Tamil<br>
-  <input type="radio" name="10thSubject" value="English" onclick="showLinks('10th')"> English<br>
-  <input type="radio" name="10thSubject" value="Maths" onclick="showLinks('10th')"> Maths<br>
-  <input type="radio" name="10thSubject" value="Science" onclick="showLinks('10th')"> Science<br>
-  <input type="radio" name="10thSubject" value="SocialScience" onclick="showLinks('10th')"> Social Science<br>
-</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-selection card32">
+                            <h2 style="margin-left: 20px;">SELECT SUBJECT</h2>
+                            <select id="subjectSelecte" style="display: none;" onchange="handleSubjectChange()"></select>
+                            <select id="subjectSelectt" style="display: none;" onchange="handleSubjectChange()"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<!-- 10th Tamil Links -->
-<div id="10thtamilLinks" class="links">
-  <h4>10th Tamil</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLcNFxICIFZLqSEqITPquIHiDdxWEFeUUp" target="_blank">Tamil All Units</a></li>
-  </ul>
-</div>
+            <div class="col-md-6">
+                <div class="card4">
+                    <div id="contentArea" style="width: 100%; height: 100%; padding: 20px; overflow-y: auto;">
+                        <h3 style="margin: 20px; text-align: center; color: #006ceb;">Welcome! Please select your Class, Medium, Group (if applicable), and Subject to view videos.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        <a href="allicon.php"><button class="btn btn-danger" style="margin-left: 46%; padding:10px">Back</button></a>
+    </div>
 
-<!-- 10th English Links -->
-<div id="10thenglishLinks" class="links">
-  <h4>10th English</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkbStUeaFXRteeVnuQgazzh">Unit 1</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmedPd8RpUwIFWKPgo8wb0O">Unit 2</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGm40ThpcirTDYnTv50mXco9">Unit 3</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGnKTThELwdOSbohn13jajcy">Unit 4</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGlyofno7piknFYzlp7tzJLp">Unit 5</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGns2cr_nVfnPOo69vjjCjAB">Unit 6</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmc8yuaHupV3T02OxeJ9YDd">Unit 7</a></li>
-    <!-- add more links as needed -->
-  </ul>
-</div>
+    <script>
+        let medium = '';
+        let currentClass = '';
 
-<!-- 10th Maths Links -->
-<div id="10thmathsLinks" class="links">
-  <h4>10th Maths</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL2qtWkm0Z4ce0vD-aJXoFOgQXQLrXhsKb">All lession</a></li>
-  </ul>
-</div>
+        const groups = {
+            English: {
+                default: "Select your group",
+                CSE: "CSE",
+                Biology: "BIOLOGY",
+                BusinessMaths: "BUSINESS MATHS",
+                Commerce: "COMMERCE",
+                PureScience: "PURE SCIENCE"
+            },
+            Tamil: {
+                default: "உங்கள் குழுவைத் தேர்ந்தெடுக்கவும்",
+                CSE: "கணினி அறிவியல்",
+                Biology: "உயிரியல்",
+                BusinessMaths: "வணிகக் கணிதம்",
+                Commerce: "வணிகவியல்",
+                PureScience: "தூய அறிவியல்"
+            }
+        };
 
-<!-- 10th Science Links -->
-<div id="10thscienceLinks" class="links">
-  <h4>10th Science</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/watch?v=-HSDnFOhws0">Unit 1</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOTI4AK8NGVcVG4BpTLhK6dZ">Unit 2</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOQhbqJfqdXb1we9FOoyZhi5">Unit 3</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOSntulxzUdUN4DTZWyRR_Wt">Unit 4</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOQtkpq-D_vWQKWsGXGqIegK">Unit 5</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOTtE5GDnw0NLp_Iqcg94_Gu">Unit 6</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOS4sHQSmWgLxkO7VbLN2eAm">Unit 7</a></li>
-        <li><a href="https://www.youtube.com/watch?v=xB5Mdg2cPfo&utm_source=chatgpt.com">Unit 8</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOTPGDg4Y0x8TUJ_Vxg5Rb84">Unit 9</a></li>
-        <li><a href="https://www.youtube.com/watch?v=lOYlSWRcmos">Unit 10</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLOcMe4sAZcqAHHHhlwnqMDxfZi87TpSD7">Unit 11</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLN-bJR0kghyEXTZXhC7efmzeFj-_34FTC">Unit 12</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOQzXj4l9jEtnOm9VhW2WrLA">Unit 13</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLN-bJR0kghyHk_je5jApf5PbVdeHXhz71">Unit 14</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLN-bJR0kghyHltYVJBsCfM_ofN986REjL">Unit 15</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLN-bJR0kghyFdcrYny1uhSSUyITN1qiCO">Unit 16</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLN-bJR0kghyHgditvTPQICg_-YwFsQzN">Unit 17</a></li>
-        <li><a href="https://www.youtube.com/playlist?list=PLN-bJR0kghyEjeBwGZ_5VE3aX0_rQjuj3">Unit 18</a></li>
-  </ul>
-</div>
+        // Video content mapping
+        const videoData = {
+            '10th': {
+                'Tamil': '<h4><i class="fas fa-video"></i> 10th Tamil Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLcNFxICIFZLqSEqITPquIHiDdxWEFeUUp" target="_blank" rel="noopener noreferrer">Tamil All Units</a></li></ul>',
+                'English': '<h4><i class="fas fa-video"></i> 10th English Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkbStUeaFXRteeVnuQgazzh" target="_blank" rel="noopener noreferrer">Unit 1</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmedPd8RpUwIFWKPgo8wb0O" target="_blank" rel="noopener noreferrer">Unit 2</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGm40ThpcirTDYnTv50mXco9" target="_blank" rel="noopener noreferrer">Unit 3</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGnKTThELwdOSbohn13jajcy" target="_blank" rel="noopener noreferrer">Unit 4</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGlyofno7piknFYzlp7tzJLp" target="_blank" rel="noopener noreferrer">Unit 5</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGns2cr_nVfnPOo69vjjCjAB" target="_blank" rel="noopener noreferrer">Unit 6</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmc8yuaHupV3T02OxeJ9YDd" target="_blank" rel="noopener noreferrer">Unit 7</a></li></ul>',
+                'Maths': '<h4><i class="fas fa-video"></i> 10th Maths Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL2qtWkm0Z4ce0vD-aJXoFOgQXQLrXhsKb" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Science': '<h4><i class="fas fa-video"></i> 10th Science Videos</h4><ul><li><a href="https://www.youtube.com/watch?v=-HSDnFOhws0" target="_blank" rel="noopener noreferrer">Unit 1</a></li><li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOTI4AK8NGVcVG4BpTLhK6dZ" target="_blank" rel="noopener noreferrer">Unit 2</a></li><li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOQhbqJfqdXb1we9FOoyZhi5" target="_blank" rel="noopener noreferrer">Unit 3</a></li><li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOSntulxzUdUN4DTZWyRR_Wt" target="_blank" rel="noopener noreferrer">Unit 4</a></li><li><a href="https://www.youtube.com/playlist?list=PLpzhzm2vqtOQtkpq-D_vWQKWsGXGqIegK" target="_blank" rel="noopener noreferrer">Unit 5</a></li></ul>',
+                'Social Science': '<h4><i class="fas fa-video"></i> 10th Social Science Videos</h4><h5>History</h5><ul><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGk24w4VhibV0FNuQ8NmleNr" target="_blank" rel="noopener noreferrer">Unit 1</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkaSjlie3IJIYQtBs49N_XA" target="_blank" rel="noopener noreferrer">Unit 2</a></li></ul><h5>Geography</h5><ul><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGk5c5mIwZatGRvNT6LETOUL" target="_blank" rel="noopener noreferrer">Unit 1</a></li><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmOdGR-h7njvs6hLGsNa09l" target="_blank" rel="noopener noreferrer">Unit 2</a></li></ul>'
+            },
+            '11th': {
+                'Tamil': '<h4><i class="fas fa-video"></i> 11th Tamil Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLh_WxVJ_RG6VVRPMiLorAn_kF0OeClMZD" target="_blank" rel="noopener noreferrer">Tamil All Units</a></li></ul>',
+                'English': '<h4><i class="fas fa-video"></i> 11th English Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGlzF3KC-r4pI8HgwbP73ctU" target="_blank" rel="noopener noreferrer">All topics</a></li></ul>',
+                'Maths': '<h4><i class="fas fa-video"></i> 11th Maths Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL2qtWkm0Z4ccmrxoNjy2bgOWW8Jddu_0k" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Physics': '<h4><i class="fas fa-video"></i> 11th Physics Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=11th" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Chemistry': '<h4><i class="fas fa-video"></i> 11th Chemistry Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL3s-GF0G43lSB_6ST-AKTVBWnngENBG4z" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Biology': '<h4><i class="fas fa-video"></i> 11th Biology Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLQcARNyZqreWh4o7Mjt7OfhKMASIY_A0D" target="_blank" rel="noopener noreferrer">Bio-Zoology</a></li><li><a href="https://www.youtube.com/playlist?list=PLy85GAYxmSmMAIgr1lVD4pArrBIQCt2Nu" target="_blank" rel="noopener noreferrer">Bio-Botany</a></li></ul>',
+                'Computer Science': '<h4><i class="fas fa-video"></i> 11th Computer Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL3G8RpRE66HUpVRD7mnijqYcfl316QSCR" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Accountancy': '<h4><i class="fas fa-video"></i> 11th Accountancy Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=11th+accountancy" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Economics': '<h4><i class="fas fa-video"></i> 11th Economics Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=11th+economics" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Commerce': '<h4><i class="fas fa-video"></i> 11th Commerce Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=11th+commerce" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Business Maths': '<h4><i class="fas fa-video"></i> 11th Business Maths Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=11th+business+maths" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Computer Application': '<h4><i class="fas fa-video"></i> 11th Computer Application Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=11th+computer+application" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>'
+            },
+            '12th': {
+                'Tamil': '<h4><i class="fas fa-video"></i> 12th Tamil Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLXyXmEDi5S6XO8Tn_P8qOnoCytlk1XSbN" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'English': '<h4><i class="fas fa-video"></i> 12th English Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLeJGQm2AZIIBR32KyjPh3E9vIJxq8rUm4" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Maths': '<h4><i class="fas fa-video"></i> 12th Maths Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PL2qtWkm0Z4ceoeB0lzMfdKSKI85-l_Vv_" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Physics': '<h4><i class="fas fa-video"></i> 12th Physics Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLWtojMl0l6YUv5Z6z6LXXuaRamZYoq7Rj" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Chemistry': '<h4><i class="fas fa-video"></i> 12th Chemistry Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLg99mcrxFRz_i5lTECfp3aNEKGGiNeaoj" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Biology': '<h4><i class="fas fa-video"></i> 12th Biology Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLy85GAYxmSmMec8WRplK1QOh_jFT14wGU" target="_blank" rel="noopener noreferrer">Bio-Botany</a></li><li><a href="https://www.youtube.com/playlist?list=PLXjS4O0taZpQoUKapiYAZJdsbbx2WzQAZ" target="_blank" rel="noopener noreferrer">Bio-Zoology</a></li></ul>',
+                'Computer Science': '<h4><i class="fas fa-video"></i> 12th Computer Videos</h4><ul><li><a href="https://www.youtube.com/playlist?list=PLsl2RzShS3I0h-oymlVSt83PCzu7ftyTl" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Accountancy': '<h4><i class="fas fa-video"></i> 12th Accountancy Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=12th+accountancy" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Economics': '<h4><i class="fas fa-video"></i> 12th Economics Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=12th+economics" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Commerce': '<h4><i class="fas fa-video"></i> 12th Commerce Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=12th+commerce" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Business Maths': '<h4><i class="fas fa-video"></i> 12th Business Maths Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=12th+business+maths" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>',
+                'Computer Application': '<h4><i class="fas fa-video"></i> 12th Computer Application Videos</h4><ul><li><a href="https://www.youtube.com/@MurugaMP/search?query=12th+computer+application" target="_blank" rel="noopener noreferrer">All lessons</a></li></ul>'
+            }
+        };
 
-<!-- 10th Social Science Links -->
-<div id="10thsocialscienceLinks" class="links">
-  <h4>10th Social Science</h4>
-  <h5>History</h5>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGk24w4VhibV0FNuQ8NmleNr">Unit 1</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkaSjlie3IJIYQtBs49N_XA">Unit 2</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmTdfHJ9Y4xSUufPb8oQcFg">Unit 3</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmPFeoWwXybXEJW1jT8Sb_H">Unit 4</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGnvgy78Ujfdg0k1eFZ551v8">Unit 5</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkeLovZkN5tvmqr5Y8BQ0F5">Unit 6</a></li>
-    <li><a href="https://www.youtube.com/watch?v=E7zafiGNGj8">Unit 7</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkuO6gtKO2a2trVJ6gIEp0i">Unit 8</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGnqUn_2r8p5gm4iwlST6lAY">Unit 9</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkuwUGrerTAqAARh43A8UA8">Unit 10</a></li>
-  </ul>
-  <h5>Geography</h5>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGk5c5mIwZatGRvNT6LETOUL">Unit 1</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmOdGR-h7njvs6hLGsNa09l">Unit 2</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGnRf6mMNgs7pni0IT5X-wmZ">Unit 3</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmQJ5pUPXdvlRGcFmekrTdn">Unit 4</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkSdk1yc5Er0F08YVBcYpex">Unit 5</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGma9K-Kkfu79YRCRJBOMucP">Unit 6</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGkG0uPis2ToPbv-hPhAUx6K">Unit 7</a></li>
-  </ul>
-  <h5>Civics</h5>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmzbEwmS8K3BJVFOrO0qNCB">Unit 1</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmcvc1tjs2W4QUEuoZ9nEYT">Unit 2</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGl3xz1Af4jawgYh1O8vWr_H">Unit 3</a></li>
-    <li><a href="https://www.youtube.com/watch?v=-KA8qM5j2R0">Unit 4</a></li>
-    <li><a href="https://www.youtube.com/watch?v=KaL88Q519Vs">Unit 5</a></li>
-  </ul>
-  <h5>Economics</h5>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmKD8Cu4XVQpJzn5JshLUNe">Unit 1</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGmO4qBbv9SdG9NXOtsr0pT-">Unit 2</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGl7Y7knKNHmPR3nkOHQuLnU">Unit 3</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGm2-CiqdrqGeusso9WdUPng">Unit 4</a></li>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGnXc3S8IzON05N7680BHBqw">Unit 5</a></li>
-  </ul>
-</div>
+        function getSubjectNameFromOption(optionText) {
+            let text = optionText.trim();
+            const tamilToEnglish = {
+                "ஆங்கிலம்": "English",
+                "தமிழ்": "Tamil",
+                "கணிதம்": "Maths",
+                "அறிவியல்": "Science",
+                "சமூக அறிவியல்": "Social Science",
+                "வேதியியல்": "Chemistry",
+                "இயற்பியல்": "Physics",
+                "உயிரியல்": "Biology",
+                "கணினி அறிவியல": "Computer Science",
+                "கணக்கியல்": "Accountancy",
+                "பொருளியல்": "Economics",
+                "வணிகவியல்": "Commerce",
+                "வணிகக் கணிதம்": "Business Maths",
+                "கணினி பயன்பாடு": "Computer Application"
+            };
+            return medium === 'English' ? text : tamilToEnglish[text] || text;
+        }
 
-<div id="11thSection" class="section">
-  <h4>Select Subject (11th):</h4>
-  <input type="radio" name="11thSubject" value="Tamil" onclick="showLinks('11th')"> Tamil<br>
-  <input type="radio" name="11thSubject" value="English" onclick="showLinks('11th')"> English<br>
-  <input type="radio" name="11thSubject" value="Maths" onclick="showLinks('11th')"> Maths<br>
-  <input type="radio" name="11thSubject" value="Physics" onclick="showLinks('11th')"> Physics<br>
-  <input type="radio" name="11thSubject" value="Chemistry" onclick="showLinks('11th')"> Chemistry<br>
-  <input type="radio" name="11thSubject" value="Bio-Zoology" onclick="showLinks('11th')"> Bio-Zoology<br>
-  <input type="radio" name="11thSubject" value="Bio-Botony" onclick="showLinks('11th')"> Bio-Botony<br>
-  <input type="radio" name="11thSubject" value="Computer" onclick="showLinks('11th')"> Computer<br>
-</div>
+        function handleSubjectChange() {
+            const activeSelect = document.getElementById(medium === 'English' ? 'subjectSelecte' : 'subjectSelectt');
+            const selectedText = activeSelect.options[activeSelect.selectedIndex].text;
+            const selectedValue = activeSelect.value;
 
-<div id="11thtamilLinks" class="links">
-  <h4>11th Tamil</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLh_WxVJ_RG6VVRPMiLorAn_kF0OeClMZD" target="_blank">Tamil All Units</a></li>
-  </ul>
-</div>
+            if (selectedValue && selectedValue !== 'default' && selectedText) {
+                const subjectKey = getSubjectNameFromOption(selectedText);
+                const content = videoData[currentClass] && videoData[currentClass][subjectKey]
+                    ? videoData[currentClass][subjectKey]
+                    : '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Videos for ' + subjectKey + ' (' + currentClass + ') not available yet.</h3>';
+                document.getElementById('contentArea').innerHTML = content;
+            } else {
+                document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select a subject to view videos.</h3>';
+            }
+        }
 
-<div id="11thenglishLinks" class="links">
-  <h4>11th English</h4>
-  <h4>Unit 1</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL86X0RNCqNGlzF3KC-r4pI8HgwbP73ctU">All topics</a></li>
-    </ul>
-    <h4>Unit 2</h4>
-    <ul> 
-    <li><a href="https://www.youtube.com/watch?v=vUIKeIsT8ik">Prose 2</a></li>
-    <li><a href="https://www.youtube.com/watch?v=dNuLtsRUbp0">Poem 2</a></li>
-    <li><a href="https://www.youtube.com/watch?v=X3cZtWRKHqU">Supplementry 2</a></li>
-  </ul>
-  <h4>Unit 3</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/watch?v=XCdCB9i19XQ">Prose 3</a></li>
-    <li><a href="https://www.youtube.com/watch?v=wJv-ySAibLM">Poem 3</a></li>
-    <li><a href="https://www.youtube.com/watch?v=S3mD6W-toTw">Supplementry 3</a></li>
-  </ul>
-  <h4>Unit 4</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/watch?v=bWv5cacpj8s">Prose 4</a></li>
-    <li><a href="https://www.youtube.com/watch?v=kxGaPkv4E48">Poem 4</a></li>
-    <li><a href="https://www.youtube.com/watch?v=m-xcUWVnveg">Supplementry 4</a></li>
-  </ul>
-  <h4>Unit 5</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/watch?v=Wuyfbd4pcwU">Prose 5</a></li>
-    <li><a href="https://www.youtube.com/watch?v=vSmJOoPNz8E">Poem 5</a></li>
-    <li><a href="https://www.youtube.com/watch?v=2lIJXDfcB8A">Supplementry 5</a></li>
-  </ul>
-  <h4>Unit 6</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/watch?v=hN2fhOtHtU4">Prose 6</a></li>
-    <li><a href="https://www.youtube.com/watch?v=ITj2ldOvi7g">Poem 6</a></li>
-    <li><a href="https://www.youtube.com/watch?v=2lIJXDfcB8A">Supplementry 6</a></li>
-  </ul>
-</div>
+        function setGroupOptions(lang) {
+            const select = document.getElementById('groupSelect');
+            const groupData = groups[lang];
+            let optionsHtml = '';
+            for (const [key, value] of Object.entries(groupData)) {
+                const optionValue = key === 'default' ? 'default' : key;
+                optionsHtml += '<option value="' + optionValue + '">' + value + '</option>';
+            }
+            select.innerHTML = optionsHtml;
+        }
 
-<div id="11thmathsLinks" class="links">
-  <h4>11th Maths</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL2qtWkm0Z4ccmrxoNjy2bgOWW8Jddu_0k">All lession</a></li>
-  </ul>
-</div>
+        function hideGroupAndSubject() {
+            document.querySelector('.card31').style.display = "none";
+            document.querySelector('.card32').style.display = "none";
+            document.getElementById('groupSelect').value = 'default';
+            document.getElementById('subjectSelecte').innerHTML = '';
+            document.getElementById('subjectSelectt').innerHTML = '';
+            document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select your Class, Medium, Group (if applicable), and Subject to view videos.</h3>';
+        }
 
-<div id="11thphysicsLinks" class="links">
-  <h4>11th Physics</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/@MurugaMP/search?query=11th">All lessions</a></li>
-  </ul>
-</div>
+        function handleClassChange(cls) {
+            currentClass = cls;
+            document.querySelector('.card30').style.display = "block";
+            document.querySelectorAll('input[name="Medium"]').forEach(r => r.checked = false);
+            hideGroupAndSubject();
+        }
 
-<div id="11thchemistryLinks" class="links">
-  <h4>11th Chemistry</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL3s-GF0G43lSB_6ST-AKTVBWnngENBG4z">All lessions</a></li>
-  </ul>
-</div>
+        function tamil() {
+            medium = 'Tamil';
+            setGroupOptions('Tamil');
+            if (currentClass === '10th') {
+                ten();
+            } else {
+                eleOrTwel();
+            }
+        }
 
-<div id="11thbio-zoologyLinks" class="links">
-  <h4>11th Bio-Zoology</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLQcARNyZqreWh4o7Mjt7OfhKMASIY_A0D">All lessions</a></li>
-  </ul>
-</div>
+        function english() {
+            medium = 'English';
+            setGroupOptions('English');
+            if (currentClass === '10th') {
+                ten();
+            } else {
+                eleOrTwel();
+            }
+        }
 
-<div id="11thbio-botonyLinks" class="links">
-  <h4>11th Bio-Botony</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLy85GAYxmSmMAIgr1lVD4pArrBIQCt2Nu">All lessions</a></li>
-  </ul>
-</div>
+        function ten() {
+            document.querySelector('.card31').style.display = "none";
+            document.querySelector('.card32').style.display = "block";
+            document.getElementById('groupSelect').value = 'default';
+            if (medium === 'Tamil') {
+                document.getElementById('subjectSelecte').style.display = 'none';
+                document.getElementById('subjectSelectt').style.display = 'block';
+                setSubjectsForTen('Tamil');
+            } else {
+                document.getElementById('subjectSelectt').style.display = 'none';
+                document.getElementById('subjectSelecte').style.display = 'block';
+                setSubjectsForTen('English');
+            }
+        }
 
-<div id="11thcomputerLinks" class="links">
-  <h4>11th Computer</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL3G8RpRE66HUpVRD7mnijqYcfl316QSCR">All lessions</a></li>
-  </ul>
-</div>
+        function eleOrTwel() {
+            document.querySelector('.card31').style.display = "block";
+            document.querySelector('.card32').style.display = "none";
+            document.getElementById('subjectSelecte').innerHTML = '';
+            document.getElementById('subjectSelectt').innerHTML = '';
+            document.getElementById('groupSelect').value = 'default';
+        }
 
-<div id="12thSection" class="section">
-  <h4>Select Subject (12th):</h4>
-  <input type="radio" name="12thSubject" value="Tamil" onclick="showLinks('12th')"> Tamil<br>
-  <input type="radio" name="12thSubject" value="English" onclick="showLinks('12th')"> English<br>
-  <input type="radio" name="12thSubject" value="Maths" onclick="showLinks('12th')"> Maths<br>
-  <input type="radio" name="12thSubject" value="Physics" onclick="showLinks('12th')"> Physics<br>
-  <input type="radio" name="12thSubject" value="Chemistry" onclick="showLinks('12th')"> Chemistry<br>
-  <input type="radio" name="12thSubject" value="Bio-Zoology" onclick="showLinks('12th')"> Bio-Zoology<br>
-  <input type="radio" name="12thSubject" value="Bio-Botony" onclick="showLinks('12th')"> Bio-Botony<br>
-  <input type="radio" name="12thSubject" value="Computer" onclick="showLinks('12th')"> Computer<br>
-</div>
-<!-- You can add 11thSection and 12thSection like this format later -->
+        function showSubject() {
+            const group = document.getElementById('groupSelect').value;
+            const subjectSelectE = document.getElementById('subjectSelecte');
+            const subjectSelectT = document.getElementById('subjectSelectt');
 
-<div id="12thtamilLinks" class="links">
-  <h4>12th Tamil</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLXyXmEDi5S6XO8Tn_P8qOnoCytlk1XSbN">All lessions</a></li>
-  </ul>
-</div>
+            if (group !== 'default') {
+                document.querySelector('.card32').style.display = "block";
+                if (medium === 'Tamil') {
+                    subjectSelectE.style.display = 'none';
+                    subjectSelectT.style.display = 'block';
+                    setGroupSubjects(group, 'Tamil');
+                } else {
+                    subjectSelectT.style.display = 'none';
+                    subjectSelectE.style.display = 'block';
+                    setGroupSubjects(group, 'English');
+                }
+            } else {
+                document.querySelector('.card32').style.display = "none";
+                subjectSelectE.style.display = 'none';
+                subjectSelectT.style.display = 'none';
+            }
+            document.getElementById('contentArea').innerHTML = '<h3 style="margin: 20px; text-align: center; color: #006ceb;">Please select a subject to view videos.</h3>';
+        }
 
-<div id="12thenglishLinks" class="links">
-  <h4>12th English</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLeJGQm2AZIIBR32KyjPh3E9vIJxq8rUm4">All lessions</a></li>
-  </ul>
-</div>
+        function setSubjectsForTen(med) {
+            const subjectSelect = med === 'Tamil'
+                ? document.getElementById('subjectSelectt')
+                : document.getElementById('subjectSelecte');
+            if (med === 'Tamil') {
+                subjectSelect.innerHTML = `
+                    <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                    <option value="sub1">ஆங்கிலம்</option>
+                    <option value="sub2">தமிழ்</option>
+                    <option value="sub3">கணிதம்</option>
+                    <option value="sub4">அறிவியல்</option>
+                    <option value="sub5">சமூக அறிவியல்</option>
+                `;
+            } else {
+                subjectSelect.innerHTML = `
+                    <option value="default">Select your Subject</option>
+                    <option value="sub1">English</option>
+                    <option value="sub2">Tamil</option>
+                    <option value="sub3">Maths</option>
+                    <option value="sub4">Science</option>
+                    <option value="sub5">Social Science</option>
+                `;
+            }
+        }
 
-<div id="12thmathsLinks" class="links">
-  <h4>12th Maths</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PL2qtWkm0Z4ceoeB0lzMfdKSKI85-l_Vv_">All lessions</a></li>
-  </ul>
-</div>
+        function setGroupSubjects(group, med) {
+            const subjectSelect = med === 'Tamil'
+                ? document.getElementById('subjectSelectt')
+                : document.getElementById('subjectSelecte');
 
-<div id="12thphysicsLinks" class="links">
-  <h4>12th Physics</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLWtojMl0l6YUv5Z6z6LXXuaRamZYoq7Rj">All lessions</a></li>
-  </ul>
-</div>
+            const subjects = {
+                Tamil: {
+                    CSE: `
+                        <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="sub1">ஆங்கிலம்</option>
+                        <option value="sub2">தமிழ்</option>
+                        <option value="sub3">கணிதம்</option>
+                        <option value="sub4">வேதியியல்</option>
+                        <option value="sub5">இயற்பியல்</option>
+                        <option value="sub6">கணினி அறிவியல</option>
+                    `,
+                    Biology: `
+                        <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="sub1">ஆங்கிலம்</option>
+                        <option value="sub2">தமிழ்</option>
+                        <option value="sub3">கணிதம்</option>
+                        <option value="sub4">வேதியியல்</option>
+                        <option value="sub5">இயற்பியல்</option>
+                        <option value="sub6">உயிரியல்</option>
+                    `,
+                    BusinessMaths: `
+                        <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="sub1">ஆங்கிலம்</option>
+                        <option value="sub2">தமிழ்</option>
+                        <option value="sub3">கணக்கியல்</option>
+                        <option value="sub4">பொருளியல்</option>
+                        <option value="sub5">வணிகவியல்</option>
+                        <option value="sub6">வணிகக் கணிதம்</option>
+                    `,
+                    Commerce: `
+                        <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="sub1">ஆங்கிலம்</option>
+                        <option value="sub2">தமிழ்</option>
+                        <option value="sub3">கணக்கியல்</option>
+                        <option value="sub4">பொருளியல்</option>
+                        <option value="sub5">வணிகவியல்</option>
+                        <option value="sub6">கணினி பயன்பாடு</option>
+                    `,
+                    PureScience: `
+                        <option value="default">உங்கள் பாடத்தைத் தேர்ந்தெடுக்கவும்</option>
+                        <option value="sub1">ஆங்கிலம்</option>
+                        <option value="sub2">தமிழ்</option>
+                        <option value="sub3">உயிரியல்</option>
+                        <option value="sub4">வேதியியல்</option>
+                        <option value="sub5">இயற்பியல்</option>
+                        <option value="sub6">கணினி அறிவியல</option>
+                    `
+                },
+                English: {
+                    CSE: `
+                        <option value="default">Select your Subject</option>
+                        <option value="sub1">English</option>
+                        <option value="sub2">Tamil</option>
+                        <option value="sub3">Maths</option>
+                        <option value="sub4">Chemistry</option>
+                        <option value="sub5">Physics</option>
+                        <option value="sub6">Computer Science</option>
+                    `,
+                    Biology: `
+                        <option value="default">Select your Subject</option>
+                        <option value="sub1">English</option>
+                        <option value="sub2">Tamil</option>
+                        <option value="sub3">Maths</option>
+                        <option value="sub4">Chemistry</option>
+                        <option value="sub5">Physics</option>
+                        <option value="sub6">Biology</option>
+                    `,
+                    BusinessMaths: `
+                        <option value="default">Select your Subject</option>
+                        <option value="sub1">English</option>
+                        <option value="sub2">Tamil</option>
+                        <option value="sub3">Accountancy</option>
+                        <option value="sub4">Economics</option>
+                        <option value="sub5">Commerce</option>
+                        <option value="sub6">Business Maths</option>
+                    `,
+                    Commerce: `
+                        <option value="default">Select your Subject</option>
+                        <option value="sub1">English</option>
+                        <option value="sub2">Tamil</option>
+                        <option value="sub3">Accountancy</option>
+                        <option value="sub4">Economics</option>
+                        <option value="sub5">Commerce</option>
+                        <option value="sub6">Computer Application</option>
+                    `,
+                    PureScience: `
+                        <option value="default">Select your Subject</option>
+                        <option value="sub1">English</option>
+                        <option value="sub2">Tamil</option>
+                        <option value="sub3">Biology</option>
+                        <option value="sub4">Chemistry</option>
+                        <option value="sub5">Physics</option>
+                        <option value="sub6">Computer Science</option>
+                    `
+                }
+            };
 
-<div id="12thchemistryLinks" class="links">
-  <h4>12th Chemistry</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLg99mcrxFRz_i5lTECfp3aNEKGGiNeaoj">All lessions</a></li>
-  </ul>
-</div>
-
-<div id="12thbio-botonyLinks" class="links">
-  <h4>12th Bio-Botony</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLy85GAYxmSmMec8WRplK1QOh_jFT14wGU">All lessions</a></li>
-  </ul>
-</div>
-
-<div id="12thbio-zoologyLinks" class="links">
-  <h4>12th Bio-Zoology</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLXjS4O0taZpQoUKapiYAZJdsbbx2WzQAZ">All lessions</a></li>
-  </ul>
-</div>
-
-<div id="12thcomputerLinks" class="links">
-  <h4>12th Computer</h4>
-  <ul>
-    <li><a href="https://www.youtube.com/playlist?list=PLsl2RzShS3I0h-oymlVSt83PCzu7ftyTl">All lessions</a></li>
-  </ul>
-</div>
-
+            subjectSelect.innerHTML = subjects[med][group] || '';
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html><br><br>
-<?php include('footer.php'); ?>
+
+</html>

@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student_Friend / Register</title>
+  <title>Student_Friend / Forgetpassword</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" />
   <style>
     body {
-      background-image: url(./image/WhatsApp\ Image\ 2025-09-28\ at\ 09.29.23_ec17aabb.jpg);
+       background-image: url(./image/WhatsApp\ Image\ 2025-09-28\ at\ 09.29.23_ec17aabb.jpg);
       background-size: cover;
       background-position: center;
       font-family: "Lato", sans-serif;
@@ -18,8 +18,9 @@
 
     .card1 {
       background-color: white;
-      max-width: 700px;
+      max-width: 500px;
       margin: 5% auto;
+      margin-top: 10%;
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0px 16px 25px rgba(0, 0, 0, 0.2);
@@ -54,7 +55,6 @@
       font-weight: 700;
       margin-bottom: 5px;
     }
-
     #bar {
       height: 8px;
       border-radius: 5px;
@@ -78,93 +78,20 @@
 
 <body>
   <div class="card1">
-    <h2>STUDENT REGISTRATION</h2>
-    <form action="rdb1.php" method="POST">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label>First Name :</label>
-          <div class="input-group">
-            <input type="text" name="fname" class="form-control" placeholder="Enter your First name..." required>
-            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label>Last Name :</label>
-          <div class="input-group">
-            <input type="text" name="lname" class="form-control" placeholder="Enter your Last name..." required>
-            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-          </div>
-        </div>
-      </div>
-
+    <h2>FORGET PASSWORD</h2>
+    <form action="fodb.php" method="POST">
       <div class="mb-3">
         <label>Email :</label>
         <div class="input-group">
-          <input type="email" name="lemail" class="form-control" placeholder="Enter your Email address..." required>
+          <input type="email" name="femail" class="form-control" placeholder="Enter your Email address..." required>
           <span class="input-group-text"><i class="fas fa-envelope"></i></span>
         </div>
       </div>
 
       <div class="mb-3">
-        <label>Mobile No :</label>
+        <label> New Password :</label>
         <div class="input-group">
-          <input type="tel" name="lmobileno" class="form-control" placeholder="Enter your Mobile No..." maxlength="10" required>
-          <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label>School Name :</label>
-        <div class="input-group">
-          <input type="text" name="school" class="form-control" placeholder="Enter your School name..." required>
-          <span class="input-group-text"><i class="fa-solid fa-school"></i></span>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label>Student Id:</label>
-        <div class="input-group" style="width: 98.5%;">
-          <input type="text" name="student_id" class="form-control" placeholder="Enter your Student Id (Optional)...">
-          <span class="input-group-text"><i class="fa-solid fa-id-badge"></i></span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label>City/Town:</label>
-          <div class="input-group">
-            <input type="text" name="place" class="form-control" placeholder="Enter your City / Town....." required>
-            <span class="input-group-text"><i class="fa-solid fa-city"></i></span>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label>State :</label>
-          <div class="input-group" style="width: 86%;">
-            <input type="text" name="state" class="form-control" value="Tamilnadu" >
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label>DOB :</label>
-          <input type="date" name="dob" class="form-control" required>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label style="margin-bottom: 9px;">Gender :</label><br>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="Gender" value="Male" required>
-            <label class="form-check-label">Male</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="Gender" value="Female" required>
-            <label class="form-check-label">Female</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <label>Password :</label>
-        <div class="input-group">
-          <input type="password" id="password" class="form-control" placeholder="Enter your Password..." required>
+          <input type="password" id="password" class="form-control" placeholder="Enter your New Password..." required>
           <span class="input-group-text" onclick="togglePassword()">
             <i class="fa-solid fa-eye-slash" id="eyeIcon"></i>
           </span>
@@ -178,33 +105,29 @@
       <div id="word"></div>
 
       <div class="mb-3">
-        <label>Confirm Password :</label>
+        <label> Confirm Password :</label>
         <div class="input-group">
-          <input type="password" name="lpassword" id="password1" oninput="check()" class="form-control"
-            placeholder="Enter your Confirm Password..." required>
+          <input type="password" name="fpassword" id="password1" oninput="check()" class="form-control" placeholder="Enter your Confirm Password..." required>
           <span class="input-group-text" onclick="togglePassword1()">
             <i class="fa-solid fa-eye-slash" id="eyeIcon1"></i>
           </span>
         </div>
       </div>
-      <p id="word1"></p>
+      <p id ="say"></p>
 
       <div class="d-grid mb-3">
-        <button type="submit" id="mess" onclick="mess()" class="btn btn-primary">Register</button>
+        <button type="submit" id="mess" onclick="mess()" class="btn btn-primary">Reset</button>
       </div>
-
-    </form>
-    <div class="d-grid">
-      <button class="btn btn-danger" onclick="location.href='index.php'">Back</button>
-    </div>
-
-    <p class="text-center mt-3">Already have an account? <a href="login.php" style="color:#006ceb; cursor: pointer;"><u>Login
-          here</u></a></p>
+       </form>
+      <div class="d-grid ">
+        <button onclick="location.href='login.php'" class="btn btn-danger">Back</button>
+      </div>
+   
   </div>
 
 
   <script>
-    function togglePassword() {
+   function togglePassword() {
       const passwordField = document.getElementById("password");
       const eyeIcon = document.getElementById("eyeIcon");
 
@@ -233,7 +156,7 @@
         eyeIcon.classList.add("fa-eye-slash");
       }
     }
-
+    
     document.getElementById("password").addEventListener("input", function () {
       const password = this.value;
       const barfill = document.querySelector("#bar .barfill");
@@ -288,26 +211,19 @@
 
     });
 
-    var passwordcheck = document.getElementById("password");
-    var passwordcheck1 = document.getElementById("password1");
-    var word1 = document.getElementById("word1");
+   var pass1=document.getElementById("password");
+   var pass2=document.getElementById("password1");
+   var say=document.getElementById("say");
 
-    function check() {
-      if (passwordcheck1.value === passwordcheck.value) {
-        word1.textContent = "";
-
-      }
-      else {
-        word1.textContent = "Incorrect Password";
-        word1.style.color = "red";
-      }
+   function check(){
+    if(pass1.value==pass2.value){
+        say.textContent="";
     }
-    var mess = document.getElementById("mess");
-    function mess() {
-      alert("Registered Successfully");
+    else{
+        say.textContent="Incorrect";
+        say.style.color="red";
     }
-
-
+   }
   </script>
 
 </body>
